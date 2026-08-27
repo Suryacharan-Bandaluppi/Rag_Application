@@ -1,4 +1,4 @@
-# PaySlate AI — Grounded RAG Chatbot Application
+# Grounded RAG Chatbot Application
 
 A custom, end-to-end **Retrieval-Augmented Generation (RAG)** Chatbot built specifically for **PaySlate** documentation. 
 
