@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Application — Grounded Document Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon">🤖</div>
+        <div class="brand-text">
+          <h2>RAG <span>Application</span></h2>
+          <p>Document Knowledgebase System</p>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3><span class="icon">📁</span> Ingest Documents</h3>
+        <p class="section-desc">Upload PDFs, TXT, or MD files to index into vector search.</p>
+        
+        <div class="drop-zone" id="dropZone">
+          <div class="upload-icon">☁️</div>
+          <p><strong>Click to upload</strong> or drag & drop</p>
+          <span class="file-hint">PDF, TXT, MD (Max 10MB)</span>
+          <input type="file" id="fileInput" accept=".pdf,.txt,.md" hidden>
+        </div>
+
+        <div id="uploadStatus" class="upload-status hidden"></div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3><span class="icon">⚙️</span> RAG Parameters</h3>
+        
+        <div class="control-group">
+          <label for="chunkSizeSelect">Chunk Size (chars):</label>
+          <select id="chunkSizeSelect">
+            <option value="300">300 (Precise)</option>
+            <option value="500" selected>500 (Balanced)</option>
+            <option value="1000">1000 (Detailed)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="topKSelect">Top-K Retrieval Chunks:</label>
+          <select id="topKSelect">
+            <option value="3">3 Chunks</option>
+            <option value="5" selected>5 Chunks</option>
+            <option value="8">8 Chunks</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sidebar-section db-stats-card">
+        <div class="stats-header">
+          <span class="dot active"></span>
+          <span>Vector Database</span>
+        </div>
+        <div class="stats-info">
+          <div class="stat-item">
+            <span class="stat-value" id="totalChunksVal">--</span>
+            <span class="stat-label">Total Vector Chunks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="storeTypeVal">InMemory</span>
+            <span class="stat-label">Store Engine</span>
+          </div>
+        </div>
+        <button id="clearDbBtn" class="btn-secondary danger-btn">Clear Knowledgebase</button>
+      </div>
+    </aside>
+
+    <!-- Main Chat Window -->
+    <main class="chat-container">
+      <header class="chat-header">
+        <div class="header-title">
+          <h1>RAG AI Assistant</h1>
+          <span class="badge grounded-badge">🔒 Grounded Answers Only</span>
+        </div>
+        <div class="header-status">
+          <span class="status-indicator"></span> Groq Active
+        </div>
+      </header>
+
+      <div class="chat-messages" id="chatMessages">
+        <!-- System Welcome Message -->
+        <div class="message assistant-message">
+          <div class="message-avatar">🤖</div>
+          <div class="message-content">
+            <p>Hello! I am your <strong>RAG AI Assistant</strong>.</p>
+            <p>Ask me anything about your uploaded documents. I answer strictly based on the ingested files and quote my sources.</p>
+            
+            <div class="sample-questions">
+              <p class="sample-label">Try asking:</p>
+              <button class="chip-btn" data-query="Explain me the project flow of the application">"Explain me the project flow of the application"</button>
+              <button class="chip-btn" data-query="Explain about runtime dependencies used">"Explain about runtime dependencies used"</button>
+              <button class="chip-btn" data-query="What is the distance to Jupiter?">"What is the distance to Jupiter?" (Out of context test)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <form id="chatForm" class="chat-form">
+          <input 
+            type="text" 
+            id="queryInput" 
+            placeholder="Ask a question about your uploaded documents..." 
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="sendBtn" class="send-btn">
+            <span>Send</span>
+            <span class="send-icon">➔</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

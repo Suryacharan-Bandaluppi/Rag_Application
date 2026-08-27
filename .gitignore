@@ -1,0 +1,16 @@
+# Environment variables (contains your secret GROQ_API_KEY)
+.env
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Local Vector Database & macOS files
+chroma_db/
+.DS_Store
+
+# Temporary scratch files
+scratch/
