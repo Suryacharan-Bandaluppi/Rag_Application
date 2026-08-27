@@ -26,7 +26,7 @@ def search_context(query: str, top_k: int = TOP_K) -> List[Dict[str, Any]]:
     """Embed the user query and retrieve top matching document chunks."""
     query_vector = embed_query(query)
     store = get_vector_store()
-    return store.query(query_vector=query_vector, top_k=top_k)
+    return store.query(query_vector=query_vector, top_k=top_k, query_text=query)
 
 
 def format_context_prompt(matches: List[Dict[str, Any]]) -> str:

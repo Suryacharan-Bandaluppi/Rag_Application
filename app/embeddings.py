@@ -26,22 +26,34 @@ def get_embedder():
 
 
 class FeatureHashEmbedder:
-    """Zero-dependency deterministic 384-dimensional MD5 feature hashing embedder fallback."""
+    """Zero-dependency deterministic 384-dimensional unigram+bigram feature hashing embedder fallback."""
 
     def __init__(self, dim: int = EMBEDDING_DIMENSION):
         self.dim = dim
 
     def encode_text(self, text: str) -> List[float]:
-        tokens = re.findall(r'\w+', text.lower())
+        cleaned = text.lower().replace("application", "app")
+        # Preserve alphanumeric, underscores, and hyphens for package names and code symbols
+        tokens = re.findall(r'[a-zA-Z0-9_\-]+', cleaned)
         if not tokens:
             return [0.0] * self.dim
 
         vec = [0.0] * self.dim
+
+        # 1. Unigram feature hashing
         for token in tokens:
             md5_hash = hashlib.md5(token.encode('utf-8')).hexdigest()
             idx = int(md5_hash, 16) % self.dim
             vec[idx] += 1.0
 
+        # 2. Bigram feature hashing for phrase matching
+        for i in range(len(tokens) - 1):
+            bigram = f"{tokens[i]}_{tokens[i+1]}"
+            md5_hash = hashlib.md5(bigram.encode('utf-8')).hexdigest()
+            idx = int(md5_hash, 16) % self.dim
+            vec[idx] += 1.5
+
+        # L2 Normalize
         norm = math.sqrt(sum(x * x for x in vec))
         if norm > 0:
             vec = [x / norm for x in vec]

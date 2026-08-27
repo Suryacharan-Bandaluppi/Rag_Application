@@ -1,3 +1,4 @@
+import re
 import uuid
 import importlib
 from io import BytesIO
@@ -11,9 +12,9 @@ from app.vectorstore import get_vector_store
 class PurePythonTextSplitter:
     """Pure Python text splitter when external langchain package is unavailable."""
 
-    def __init__(self, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHUNK_OVERLAP):
-        self.chunk_size = max(100, chunk_size)
-        self.chunk_overlap = max(0, min(chunk_overlap, self.chunk_size - 20))
+    def __init__(self, chunk_size: int = 800, chunk_overlap: int = 80):
+        self.chunk_size = max(200, chunk_size)
+        self.chunk_overlap = max(0, min(chunk_overlap, self.chunk_size - 40))
 
     def split_text(self, text: str) -> List[str]:
         cleaned_text = text.strip()
@@ -27,7 +28,9 @@ class PurePythonTextSplitter:
         while start < text_length:
             end = start + self.chunk_size
             if end >= text_length:
-                chunks.append(cleaned_text[start:])
+                chunk = cleaned_text[start:].strip()
+                if len(chunk) > 20:
+                    chunks.append(chunk)
                 break
 
             split_at = cleaned_text.rfind("\n\n", start, end)
@@ -41,12 +44,28 @@ class PurePythonTextSplitter:
                 split_at = end
 
             chunk = cleaned_text[start:split_at].strip()
-            if chunk:
+            if len(chunk) > 20:
                 chunks.append(chunk)
 
             start = max(start + 1, split_at - self.chunk_overlap)
 
         return chunks
+
+
+def clean_extracted_text(raw_text: str) -> str:
+    """Clean up double spacing, page footers, and formatting noise from PDF text."""
+    if not raw_text:
+        return ""
+    
+    # Remove multiple spaces/tabs
+    text = re.sub(r'[ \t]+', ' ', raw_text)
+    
+    # Remove page footer lines like "Page 1 of 4"
+    text = re.sub(r'Page\s+\d+\s+of\s+\d+', '', text, flags=re.IGNORECASE)
+    
+    # Remove redundant blank lines
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
 
 
 def extract_text_from_bytes(filename: str, raw_bytes: bytes) -> str:
@@ -64,16 +83,16 @@ def extract_text_from_bytes(filename: str, raw_bytes: bytes) -> str:
                     extracted_pages.append(text)
             full_pdf_text = "\n\n".join(extracted_pages)
             if full_pdf_text.strip():
-                return full_pdf_text
+                return clean_extracted_text(full_pdf_text)
         except Exception as e:
             print(f"PDF extraction fallback for {filename}: {e}")
         
-        return raw_bytes.decode("utf-8", errors="ignore")
+        return clean_extracted_text(raw_bytes.decode("utf-8", errors="ignore"))
     else:
-        return raw_bytes.decode("utf-8", errors="ignore")
+        return clean_extracted_text(raw_bytes.decode("utf-8", errors="ignore"))
 
 
-def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHUNK_OVERLAP) -> List[str]:
+def chunk_text(text: str, chunk_size: int = 800, chunk_overlap: int = 80) -> List[str]:
     """Split text into smaller chunks with configurable overlap."""
     try:
         splitters_mod = importlib.import_module("langchain_text_splitters")
@@ -91,7 +110,7 @@ def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHU
     return splitter.split_text(text)
 
 
-def ingest_document(filename: str, raw_bytes: bytes, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHUNK_OVERLAP) -> Dict[str, Any]:
+def ingest_document(filename: str, raw_bytes: bytes, chunk_size: int = 800, chunk_overlap: int = 80) -> Dict[str, Any]:
     """Extract, chunk, embed, and upsert a document into the vector store."""
     full_text = extract_text_from_bytes(filename, raw_bytes)
     if not full_text.strip():

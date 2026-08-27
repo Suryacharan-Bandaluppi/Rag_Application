@@ -1,7 +1,8 @@
 import importlib.util
 import logging
 import math
-from typing import List, Dict, Any, Optional, Type
+import re
+from typing import List, Dict, Any, Optional
 from app.config import (
     VECTOR_STORE_TYPE,
     PINECONE_API_KEY,
@@ -20,7 +21,7 @@ HAS_CHROMADB = importlib.util.find_spec("chromadb") is not None
 
 
 class InMemoryVectorStore:
-    """Fallback zero-dependency in-memory vector store."""
+    """Fallback zero-dependency in-memory vector store with hybrid keyword boosting."""
 
     def __init__(self):
         self.vectors = []
@@ -34,19 +35,37 @@ class InMemoryVectorStore:
                 "text": doc or ""
             })
 
-    def query(self, query_vector: List[float], top_k: int = 5) -> List[Dict[str, Any]]:
+    def query(self, query_vector: List[float], top_k: int = 5, query_text: str = "") -> List[Dict[str, Any]]:
         def cosine_similarity(v1, v2):
             dot = sum(a * b for a, b in zip(v1, v2))
             norm1 = math.sqrt(sum(a * a for a in v1))
             norm2 = math.sqrt(sum(b * b for b in v2))
             return dot / (norm1 * norm2) if (norm1 and norm2) else 0.0
 
+        # Extract keyword/symbol terms from query text
+        query_terms = []
+        if query_text:
+            query_terms = [
+                t.lower() for t in re.findall(r'[a-zA-Z0-9_\-]+', query_text)
+                if len(t) > 2 and t.lower() not in {"what", "is", "the", "version", "used", "for", "how", "does", "about", "are"}
+            ]
+
         scored = []
         for item in self.vectors:
-            score = cosine_similarity(query_vector, item["vector"])
+            vec_score = cosine_similarity(query_vector, item["vector"])
+            doc_text_lower = item["text"].lower()
+
+            # Hybrid keyword/symbol match boost
+            boost = 0.0
+            for term in query_terms:
+                if term in doc_text_lower:
+                    boost += 0.35  # Strong boost for exact package or symbol presence
+
+            final_score = vec_score + boost
+
             scored.append({
                 "id": item["id"],
-                "score": score,
+                "score": final_score,
                 "source": item["metadata"].get("source", "Unknown"),
                 "text": item["text"]
             })
@@ -129,7 +148,7 @@ class VectorStoreAdapter:
         else:
             self.memory_store.upsert(ids, vectors, metadatas, documents)
 
-    def query(self, query_vector: List[float], top_k: int = 5) -> List[Dict[str, Any]]:
+    def query(self, query_vector: List[float], top_k: int = 5, query_text: str = "") -> List[Dict[str, Any]]:
         if self.store_type == "pinecone":
             matches = []
             res = self.index.query(vector=query_vector, top_k=top_k, include_metadata=True)
@@ -164,7 +183,7 @@ class VectorStoreAdapter:
                     })
             return matches
         else:
-            return self.memory_store.query(query_vector, top_k=top_k)
+            return self.memory_store.query(query_vector=query_vector, top_k=top_k, query_text=query_text)
 
     def get_stats(self) -> Dict[str, Any]:
         if self.store_type == "chroma":
