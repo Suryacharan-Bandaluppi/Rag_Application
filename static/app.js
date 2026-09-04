@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     submitQuery(query);
   });
 
-  const rerankerToggle = document.getElementById("rerankerToggle");
+  const activeModeBadge = document.getElementById("activeModeBadge");
   const hitRateVal = document.getElementById("hitRateVal");
   const hitRateLabel = document.getElementById("hitRateLabel");
   const hitRateSub = document.getElementById("hitRateSub");
@@ -136,37 +136,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const engineModeVal = document.getElementById("engineModeVal");
   const engineModeSub = document.getElementById("engineModeSub");
 
-  function updateMetricBanner() {
-    if (!rerankerToggle) return;
-    const isEnabled = rerankerToggle.checked;
-    if (isEnabled) {
-      if (hitRateVal) {
-        hitRateVal.textContent = "100.0%";
-        hitRateVal.className = "metric-value text-green";
+  let currentUseReranker = true;
+
+  async function fetchSystemMode() {
+    try {
+      const res = await fetch("/api/mode");
+      if (res.ok) {
+        const data = await res.json();
+        currentUseReranker = data.use_reranker;
+
+        if (activeModeBadge) {
+          activeModeBadge.textContent = data.use_reranker ? "Enhanced Mode (100.0%)" : "Baseline Mode (66.7%)";
+          activeModeBadge.style.backgroundColor = data.use_reranker ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.15)";
+          activeModeBadge.style.borderColor = data.use_reranker ? "#10b981" : "#ef4444";
+          activeModeBadge.style.color = data.use_reranker ? "#10b981" : "#ef4444";
+        }
+
+        if (hitRateVal) {
+          hitRateVal.textContent = data.hit_rate;
+          hitRateVal.className = data.use_reranker ? "metric-value text-green" : "metric-value";
+        }
+        if (hitRateLabel) hitRateLabel.textContent = `Hit-Rate@3 (${data.use_reranker ? "Enhanced" : "Baseline"})`;
+        if (hitRateSub) hitRateSub.textContent = data.description;
+        if (latencyVal) latencyVal.textContent = data.p50_latency;
+        if (latencySub) latencySub.textContent = data.use_reranker ? "Virtually Zero Overhead" : "Pure Vector Cosine Search";
+        if (engineModeVal) engineModeVal.textContent = data.use_reranker ? "Cross-Encoder" : "Dense Vector";
+        if (engineModeSub) engineModeSub.textContent = data.mode_name;
       }
-      if (hitRateLabel) hitRateLabel.textContent = "Hit-Rate@3 (Enhanced)";
-      if (hitRateSub) hitRateSub.textContent = "+33.3% vs Baseline (66.7%)";
-      if (latencyVal) latencyVal.textContent = "17.34 ms";
-      if (latencySub) latencySub.textContent = "Virtually Zero Overhead";
-      if (engineModeVal) engineModeVal.textContent = "Cross-Encoder";
-      if (engineModeSub) engineModeSub.textContent = "Top-25 Candidate Reranker";
-    } else {
-      if (hitRateVal) {
-        hitRateVal.textContent = "66.7%";
-        hitRateVal.className = "metric-value";
-      }
-      if (hitRateLabel) hitRateLabel.textContent = "Hit-Rate@3 (Baseline)";
-      if (hitRateSub) hitRateSub.textContent = "4/12 Queries Missed in Top-3";
-      if (latencyVal) latencyVal.textContent = "17.50 ms";
-      if (latencySub) latencySub.textContent = "Pure Vector Cosine Search";
-      if (engineModeVal) engineModeVal.textContent = "Dense Vector";
-      if (engineModeSub) engineModeSub.textContent = "Baseline Cosine Similarity";
+    } catch (err) {
+      console.error("Failed to fetch system mode:", err);
     }
   }
 
-  if (rerankerToggle) {
-    rerankerToggle.addEventListener("change", updateMetricBanner);
-  }
+  // Poll system mode on page load and every 2 seconds
+  fetchSystemMode();
+  setInterval(fetchSystemMode, 2000);
 
   async function submitQuery(query) {
     appendMessage(query, "user");
@@ -177,11 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const topK = parseInt(topKSelect.value) || 5;
-      const useRerank = rerankerToggle ? rerankerToggle.checked : true;
       const res = await fetch("/api/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: query, top_k: topK, use_reranker: useRerank }),
+        body: JSON.stringify({ query: query, top_k: topK }),
       });
 
       const data = await res.json();
@@ -344,11 +347,10 @@ document.addEventListener("DOMContentLoaded", () => {
     inspectResults.classList.remove("hidden");
 
     try {
-      const useRerank = rerankerToggle ? rerankerToggle.checked : true;
       const res = await fetch("/api/inspect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: query, top_k: 3, use_reranker: useRerank })
+        body: JSON.stringify({ query: query, top_k: 3 })
       });
 
       const data = await res.json();
@@ -382,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         chunksHtml = "<p><em>No candidate chunks returned.</em></p>";
       }
 
-      const modeText = useRerank ? "Cross-Encoder Reranked" : "Pure Dense Vector Cosine";
+      const modeText = data.use_reranker ? "Cross-Encoder Reranked" : "Pure Dense Vector Cosine";
 
       inspectResults.innerHTML = `
         <div class="result-tag-row">

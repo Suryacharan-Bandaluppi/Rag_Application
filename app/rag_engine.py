@@ -24,8 +24,24 @@ SYSTEM_PROMPT = (
 )
 
 
-def search_context(query: str, top_k: int = TOP_K, use_reranker: bool = True) -> List[Dict[str, Any]]:
+_CURRENT_SYSTEM_USE_RERANKER: bool = True
+
+
+def set_system_reranker_mode(use_reranker: bool):
+    global _CURRENT_SYSTEM_USE_RERANKER
+    _CURRENT_SYSTEM_USE_RERANKER = use_reranker
+
+
+def get_system_reranker_mode() -> bool:
+    global _CURRENT_SYSTEM_USE_RERANKER
+    return _CURRENT_SYSTEM_USE_RERANKER
+
+
+def search_context(query: str, top_k: int = TOP_K, use_reranker: Optional[bool] = None) -> List[Dict[str, Any]]:
     """Embed query, retrieve candidate chunks, and optionally apply Cross-Encoder reranking."""
+    if use_reranker is None:
+        use_reranker = get_system_reranker_mode()
+
     query_vector = embed_query(query)
     store = get_vector_store()
 
@@ -100,8 +116,11 @@ def call_groq_api(api_key: str, model: str, system_prompt: str, user_prompt: str
             raise e
 
 
-def answer_query(query: str, top_k: int = TOP_K, use_reranker: bool = True) -> Dict[str, Any]:
+def answer_query(query: str, top_k: int = TOP_K, use_reranker: Optional[bool] = None) -> Dict[str, Any]:
     """Execute RAG pipeline: retrieval, context assembly, Groq LLM inference, and citation extraction."""
+    if use_reranker is None:
+        use_reranker = get_system_reranker_mode()
+
     matches = search_context(query, top_k=top_k, use_reranker=use_reranker)
     context_text = format_context_prompt(matches)
 
@@ -148,10 +167,13 @@ def answer_query(query: str, top_k: int = TOP_K, use_reranker: bool = True) -> D
         }
 
 
-def inspect_query(query: str, expected_keywords: Optional[List[str]] = None, top_k: int = 3, use_reranker: bool = True) -> Dict[str, Any]:
+def inspect_query(query: str, expected_keywords: Optional[List[str]] = None, top_k: int = 3, use_reranker: Optional[bool] = None) -> Dict[str, Any]:
     """
     Inspection View logic: Returns Question -> Top-3 Chunks -> Answer -> Failure Tag (R / G / OK / Not-In-Corpus) + 1-line Evidence.
     """
+    if use_reranker is None:
+        use_reranker = get_system_reranker_mode()
+
     res = answer_query(query=query, top_k=top_k, use_reranker=use_reranker)
     matches = res.get("matches", [])
     answer = res.get("answer", "")
