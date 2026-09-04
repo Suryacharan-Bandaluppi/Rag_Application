@@ -180,12 +180,19 @@ def inspect_query(query: str, expected_keywords: Optional[List[str]] = None, top
 
     if not expected_keywords:
         try:
+            query_lower = query.strip().lower()
             with open("golden_set.jsonl", "r", encoding="utf-8") as f:
                 for line in f:
                     if line.strip():
                         item = json.loads(line)
-                        if item.get("question", "").strip().lower() == query.strip().lower():
-                            expected_keywords = item.get("expected_keywords", [])
+                        g_q = item.get("question", "").strip().lower()
+                        g_kws = item.get("expected_keywords", [])
+                        # Match exact question, substring, or keyword co-occurrence in user query
+                        if (g_q == query_lower or 
+                            any(kw.lower() in query_lower for kw in g_kws if len(kw) > 2) or 
+                            query_lower in g_q or 
+                            g_q in query_lower):
+                            expected_keywords = g_kws
                             break
         except Exception:
             pass
