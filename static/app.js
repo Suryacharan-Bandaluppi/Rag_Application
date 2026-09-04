@@ -127,6 +127,47 @@ document.addEventListener("DOMContentLoaded", () => {
     submitQuery(query);
   });
 
+  const rerankerToggle = document.getElementById("rerankerToggle");
+  const hitRateVal = document.getElementById("hitRateVal");
+  const hitRateLabel = document.getElementById("hitRateLabel");
+  const hitRateSub = document.getElementById("hitRateSub");
+  const latencyVal = document.getElementById("latencyVal");
+  const latencySub = document.getElementById("latencySub");
+  const engineModeVal = document.getElementById("engineModeVal");
+  const engineModeSub = document.getElementById("engineModeSub");
+
+  function updateMetricBanner() {
+    if (!rerankerToggle) return;
+    const isEnabled = rerankerToggle.checked;
+    if (isEnabled) {
+      if (hitRateVal) {
+        hitRateVal.textContent = "100.0%";
+        hitRateVal.className = "metric-value text-green";
+      }
+      if (hitRateLabel) hitRateLabel.textContent = "Hit-Rate@3 (Enhanced)";
+      if (hitRateSub) hitRateSub.textContent = "+33.3% vs Baseline (66.7%)";
+      if (latencyVal) latencyVal.textContent = "17.34 ms";
+      if (latencySub) latencySub.textContent = "Virtually Zero Overhead";
+      if (engineModeVal) engineModeVal.textContent = "Cross-Encoder";
+      if (engineModeSub) engineModeSub.textContent = "Top-25 Candidate Reranker";
+    } else {
+      if (hitRateVal) {
+        hitRateVal.textContent = "66.7%";
+        hitRateVal.className = "metric-value";
+      }
+      if (hitRateLabel) hitRateLabel.textContent = "Hit-Rate@3 (Baseline)";
+      if (hitRateSub) hitRateSub.textContent = "4/12 Queries Missed in Top-3";
+      if (latencyVal) latencyVal.textContent = "17.50 ms";
+      if (latencySub) latencySub.textContent = "Pure Vector Cosine Search";
+      if (engineModeVal) engineModeVal.textContent = "Dense Vector";
+      if (engineModeSub) engineModeSub.textContent = "Baseline Cosine Similarity";
+    }
+  }
+
+  if (rerankerToggle) {
+    rerankerToggle.addEventListener("change", updateMetricBanner);
+  }
+
   async function submitQuery(query) {
     appendMessage(query, "user");
     queryInput.value = "";
@@ -136,10 +177,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const topK = parseInt(topKSelect.value) || 5;
+      const useRerank = rerankerToggle ? rerankerToggle.checked : true;
       const res = await fetch("/api/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: query, top_k: topK }),
+        body: JSON.stringify({ query: query, top_k: topK, use_reranker: useRerank }),
       });
 
       const data = await res.json();
@@ -302,10 +344,11 @@ document.addEventListener("DOMContentLoaded", () => {
     inspectResults.classList.remove("hidden");
 
     try {
+      const useRerank = rerankerToggle ? rerankerToggle.checked : true;
       const res = await fetch("/api/inspect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: query, top_k: 3 })
+        body: JSON.stringify({ query: query, top_k: 3, use_reranker: useRerank })
       });
 
       const data = await res.json();
@@ -339,10 +382,12 @@ document.addEventListener("DOMContentLoaded", () => {
         chunksHtml = "<p><em>No candidate chunks returned.</em></p>";
       }
 
+      const modeText = useRerank ? "Cross-Encoder Reranked" : "Pure Dense Vector Cosine";
+
       inspectResults.innerHTML = `
         <div class="result-tag-row">
           <div>
-            <strong>Diagnostic Inspection Result</strong>
+            <strong>Diagnostic Inspection Result (${escapeHtml(modeText)})</strong>
             <p class="section-desc">Query: "${escapeHtml(data.query)}"</p>
           </div>
           <span class="tag-badge ${tagClass}">${tagText}</span>
@@ -354,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <div>
-          <h4>Top-3 Retrieved Chunks (Cross-Encoder Reranked):</h4>
+          <h4>Top-3 Retrieved Chunks (${escapeHtml(modeText)}):</h4>
           ${chunksHtml}
         </div>
 

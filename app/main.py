@@ -70,7 +70,8 @@ async def query_payslate_rag(request: QueryRequest):
     if not request.query.strip():
         raise HTTPException(status_code=400, detail="Query cannot be empty.")
 
-    res = answer_query(query=request.query, top_k=request.top_k or 5)
+    use_rerank = True if request.use_reranker is None else request.use_reranker
+    res = answer_query(query=request.query, top_k=request.top_k or 5, use_reranker=use_rerank)
     return res
 
 
@@ -80,7 +81,8 @@ async def inspect_rag_query(request: QueryRequest):
     if not request.query.strip():
         raise HTTPException(status_code=400, detail="Query cannot be empty.")
 
-    res = inspect_query(query=request.query, top_k=request.top_k or 3, use_reranker=True)
+    use_rerank = True if request.use_reranker is None else request.use_reranker
+    res = inspect_query(query=request.query, top_k=request.top_k or 3, use_reranker=use_rerank)
     return res
 
 

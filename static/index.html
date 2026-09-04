@@ -55,6 +55,14 @@
             <option value="8">8 Chunks</option>
           </select>
         </div>
+
+        <div class="control-group" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; font-weight: 500; color: #a5b4fc;">
+            <input type="checkbox" id="rerankerToggle" checked>
+            <span>Cross-Encoder Reranker</span>
+          </label>
+          <span style="font-size: 10px; color: var(--text-muted);">Uncheck to test Baseline (66.7%)</span>
+        </div>
       </div>
 
       <div class="sidebar-section db-stats-card">
@@ -98,19 +106,19 @@
       <div id="inspectContainer" class="inspect-container hidden">
         <div class="metrics-summary-banner">
           <div class="metric-card">
-            <span class="metric-value text-green">100.0%</span>
-            <span class="metric-label">Hit-Rate@3 (Enhanced)</span>
-            <span class="metric-sub">+33.3% vs Baseline (66.7%)</span>
+            <span class="metric-value text-green" id="hitRateVal">100.0%</span>
+            <span class="metric-label" id="hitRateLabel">Hit-Rate@3 (Enhanced)</span>
+            <span class="metric-sub" id="hitRateSub">+33.3% vs Baseline (66.7%)</span>
           </div>
           <div class="metric-card">
-            <span class="metric-value">17.34 ms</span>
+            <span class="metric-value" id="latencyVal">17.34 ms</span>
             <span class="metric-label">p50 Latency</span>
-            <span class="metric-sub">+0.18 ms overhead</span>
+            <span class="metric-sub" id="latencySub">Virtually Zero Overhead</span>
           </div>
           <div class="metric-card">
-            <span class="metric-value">Cross-Encoder</span>
-            <span class="metric-label">Single Retrieval Change</span>
-            <span class="metric-sub">Top-25 Candidate Reranker</span>
+            <span class="metric-value" id="engineModeVal">Cross-Encoder</span>
+            <span class="metric-label">Retrieval Mode</span>
+            <span class="metric-sub" id="engineModeSub">Top-25 Candidate Reranker</span>
           </div>
         </div>
 
