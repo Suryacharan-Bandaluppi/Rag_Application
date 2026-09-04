@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from app.ingestion import ingest_document
-from app.rag_engine import answer_query
+from app.rag_engine import answer_query, inspect_query
 from app.schemas import QueryRequest, QueryResponse, IngestResponse
 from app.vectorstore import get_vector_store
 
@@ -71,6 +71,16 @@ async def query_payslate_rag(request: QueryRequest):
         raise HTTPException(status_code=400, detail="Query cannot be empty.")
 
     res = answer_query(query=request.query, top_k=request.top_k or 5)
+    return res
+
+
+@app.post("/api/inspect")
+async def inspect_rag_query(request: QueryRequest):
+    """Inspect query top-3 chunks, generated answer, and failure classification label (R / G / OK)."""
+    if not request.query.strip():
+        raise HTTPException(status_code=400, detail="Query cannot be empty.")
+
+    res = inspect_query(query=request.query, top_k=request.top_k or 3, use_reranker=True)
     return res
 
 

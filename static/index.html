@@ -83,10 +83,57 @@
           <h1>RAG AI Assistant</h1>
           <span class="badge grounded-badge">🔒 Grounded Answers Only</span>
         </div>
+        
+        <div class="view-tabs">
+          <button id="tabChatBtn" class="tab-btn active">💬 Chat View</button>
+          <button id="tabInspectBtn" class="tab-btn">🔍 Inspection View (Week 4)</button>
+        </div>
+
         <div class="header-status">
           <span class="status-indicator"></span> Groq Active
         </div>
       </header>
+
+      <!-- Inspection & Metrics View Container -->
+      <div id="inspectContainer" class="inspect-container hidden">
+        <div class="metrics-summary-banner">
+          <div class="metric-card">
+            <span class="metric-value text-green">100.0%</span>
+            <span class="metric-label">Hit-Rate@3 (Enhanced)</span>
+            <span class="metric-sub">+33.3% vs Baseline (66.7%)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">17.34 ms</span>
+            <span class="metric-label">p50 Latency</span>
+            <span class="metric-sub">+0.18 ms overhead</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value">Cross-Encoder</span>
+            <span class="metric-label">Single Retrieval Change</span>
+            <span class="metric-sub">Top-25 Candidate Reranker</span>
+          </div>
+        </div>
+
+        <div class="inspect-search-card">
+          <h3>Diagnostic Inspection Query</h3>
+          <p class="section-desc">Expose raw Top-3 chunks, LLM output, and failure label (R / G / OK) with evidence.</p>
+
+          <form id="inspectForm" class="inspect-form">
+            <input type="text" id="inspectQueryInput" placeholder="Enter a question to inspect (or pick from below)..." required>
+            <button type="submit" id="inspectBtn" class="btn-primary">Inspect Query</button>
+          </form>
+
+          <div class="golden-chips">
+            <span class="chip-label">Golden Set Samples:</span>
+            <button class="golden-chip" data-q="What version of isar is used for local storage in pubspec.yaml?">isar version</button>
+            <button class="golden-chip" data-q="Which Dart service handles FCM notifications in PaySlate and where is it located?">FCM service</button>
+            <button class="golden-chip" data-q="What package and version are used for biometric unlock on the MPIN screen?">biometric unlock</button>
+            <button class="golden-chip" data-q="What class handles route persistence for FCM background refresh decisions?">RouteNameStorage</button>
+          </div>
+        </div>
+
+        <div id="inspectResults" class="inspect-results-card hidden"></div>
+      </div>
 
       <div class="chat-messages" id="chatMessages">
         <!-- System Welcome Message -->

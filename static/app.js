@@ -245,4 +245,128 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       .replace(/\n/g, "<br>");
   }
+
+  // View Tab Switching
+  const tabChatBtn = document.getElementById("tabChatBtn");
+  const tabInspectBtn = document.getElementById("tabInspectBtn");
+  const inspectContainer = document.getElementById("inspectContainer");
+  const chatMessagesEl = document.getElementById("chatMessages");
+  const chatInputAreaEl = document.querySelector(".chat-input-area");
+
+  if (tabChatBtn && tabInspectBtn) {
+    tabChatBtn.addEventListener("click", () => {
+      tabChatBtn.classList.add("active");
+      tabInspectBtn.classList.remove("active");
+      inspectContainer.classList.add("hidden");
+      chatMessagesEl.classList.remove("hidden");
+      chatInputAreaEl.classList.remove("hidden");
+    });
+
+    tabInspectBtn.addEventListener("click", () => {
+      tabInspectBtn.classList.add("active");
+      tabChatBtn.classList.remove("active");
+      inspectContainer.classList.remove("hidden");
+      chatMessagesEl.classList.add("hidden");
+      chatInputAreaEl.classList.add("hidden");
+    });
+  }
+
+  // Diagnostic Inspection Form Logic
+  const inspectForm = document.getElementById("inspectForm");
+  const inspectQueryInput = document.getElementById("inspectQueryInput");
+  const inspectBtn = document.getElementById("inspectBtn");
+  const inspectResults = document.getElementById("inspectResults");
+
+  if (inspectForm) {
+    inspectForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const q = inspectQueryInput.value.trim();
+      if (q) runInspection(q);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("golden-chip")) {
+        const q = e.target.getAttribute("data-q");
+        if (q) {
+          inspectQueryInput.value = q;
+          runInspection(q);
+        }
+      }
+    });
+  }
+
+  async function runInspection(query) {
+    inspectBtn.disabled = true;
+    inspectResults.className = "inspect-results-card";
+    inspectResults.innerHTML = "<p><em>Retrieving top-3 chunks & analyzing failure mode...</em></p>";
+    inspectResults.classList.remove("hidden");
+
+    try {
+      const res = await fetch("/api/inspect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: query, top_k: 3 })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        inspectResults.innerHTML = `<p class="text-danger">Error: ${escapeHtml(data.detail || "Server error")}</p>`;
+        return;
+      }
+
+      let tagClass = "tag-ok";
+      let tagText = "✅ OK (Success)";
+      if (data.failure_tag === "R") {
+        tagClass = "tag-r";
+        tagText = "❌ R (Retrieval Failure)";
+      } else if (data.failure_tag === "G") {
+        tagClass = "tag-g";
+        tagText = "⚠️ G (Generation Failure)";
+      }
+
+      let chunksHtml = "";
+      if (data.top_3_chunks && data.top_3_chunks.length > 0) {
+        chunksHtml = data.top_3_chunks.map((c, i) => `
+          <div class="chunk-inspect-box">
+            <div class="chunk-header">
+              <span>Top Chunk #${i+1} [ID: ${escapeHtml(c.id || "N/A")}]</span>
+              <span>Score: ${(c.score ?? 0).toFixed(3)} | Source: ${escapeHtml(c.source || "Unknown")}</span>
+            </div>
+            <p>${escapeHtml(c.text || "")}</p>
+          </div>
+        `).join("");
+      } else {
+        chunksHtml = "<p><em>No candidate chunks returned.</em></p>";
+      }
+
+      inspectResults.innerHTML = `
+        <div class="result-tag-row">
+          <div>
+            <strong>Diagnostic Inspection Result</strong>
+            <p class="section-desc">Query: "${escapeHtml(data.query)}"</p>
+          </div>
+          <span class="tag-badge ${tagClass}">${tagText}</span>
+        </div>
+
+        <div>
+          <h4>1-Line Evidence Proof:</h4>
+          <p class="section-desc" style="color: #a5b4fc; font-weight: 500;">${escapeHtml(data.evidence || "N/A")}</p>
+        </div>
+
+        <div>
+          <h4>Top-3 Retrieved Chunks (Cross-Encoder Reranked):</h4>
+          ${chunksHtml}
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+          <h4>Generated LLM Answer:</h4>
+          <p style="margin-top: 6px;">${formatMarkdown(data.answer || "")}</p>
+        </div>
+      `;
+    } catch (err) {
+      inspectResults.innerHTML = `<p class="text-danger">Network Error: ${escapeHtml(err.message)}</p>`;
+    } finally {
+      inspectBtn.disabled = false;
+    }
+  }
 });
