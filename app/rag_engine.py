@@ -178,6 +178,18 @@ def inspect_query(query: str, expected_keywords: Optional[List[str]] = None, top
     matches = res.get("matches", [])
     answer = res.get("answer", "")
 
+    if not expected_keywords:
+        try:
+            with open("golden_set.jsonl", "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        item = json.loads(line)
+                        if item.get("question", "").strip().lower() == query.strip().lower():
+                            expected_keywords = item.get("expected_keywords", [])
+                            break
+        except Exception:
+            pass
+
     # Check if target context is present in top_k matches
     hit_retrieval = False
     evidence_retrieval = ""
