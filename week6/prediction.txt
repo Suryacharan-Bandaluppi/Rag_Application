@@ -1,0 +1,10 @@
+Prediction written 2026-09-29, before eval.py is run with judge_v1.
+
+Judge v1 will agree with 17 of my 25 labels (68%), incorrectly classifying all 8
+vocabulary-gap-miss traces as PASS because it only sees the weak retrieved chunks and
+cannot detect that a correct answer exists elsewhere in the PaySlate corpus; the judge
+will conclude that "I don't know" is faithful given the context it was shown, which is
+technically true at the chunk level but wrong at the system quality level.
+
+Expected agreement_before: 17/25 = 68%
+Expected agreement_after (judge_v2 with 2 few-shot examples): 21/25 = 84%
