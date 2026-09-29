@@ -157,7 +157,7 @@ No fields were missing.
 **Exact prediction**: Synonym expansion will reduce the vocabulary-gap miss rate from 4/20 (20%) to 1/20 (5%) or fewer on this exact 20-query sample. Traces that should fix are TE17, TE19, TE22, TE29.  
 **Falsification**: re-run `generate_traces.py` with `RANDOM_SEED=42` after the synonym step is added; count traces that still return "I don't know" for those four questions.
 
-**Git commit hash**: *(filled in after commit — see below)*
+**Git commit hash**: `dcb609d` (branch: feature/week4-implementation, 2026-09-29)
 
 ---
 
