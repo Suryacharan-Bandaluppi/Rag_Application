@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 class QueryRequest(BaseModel):
     query: str = Field(..., example="How does PaySlate handle payroll processing?")
     top_k: Optional[int] = Field(default=5, ge=1, le=20)
+    use_reranker: Optional[bool] = Field(default=None)
 
 
 class IngestResponse(BaseModel):
