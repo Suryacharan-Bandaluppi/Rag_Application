@@ -12,7 +12,7 @@
 | Metric | Baseline (Dense Cosine Top-3) | Enhanced (Top-25 + Cross-Encoder Reranker) | Delta / Change |
 | :--- | :--- | :--- | :--- |
 | **Hit-Rate@3** | **66.7%** | **100.0%** | **+33.3%** |
-| **p50 Latency (ms)** | **19.09 ms** | **20.92 ms** | **+1.83 ms** |
+| **p50 Latency (ms)** | **14.84 ms** | **15.33 ms** | **+0.50 ms** |
 | **Total Test Queries** | 12 | 12 | - |
 | **Retrieval Failures (R)** | 4 | 0 | -4 |
 | **Generation Failures (G)** | 0 | 0 | 0 |
@@ -83,5 +83,5 @@ By first pulling 25 candidate chunks and applying a **Cross-Encoder cross-attent
 
 ### Data-Backed Rationale:
 1. **Accuracy Jump**: Hit-Rate@3 reaches **100.0%**, eliminating retrieval misses on exact version numbers (`isar: ^3.1.0+1`, `local_auth: ^2.1.7`) and technical file paths (`lib/main_staging.dart`).
-2. **Latency Trade-Off**: The p50 latency overhead added by reranking top-25 candidates is only **+1.83 ms**, which is well within acceptable UI limits (<500ms total pipeline response).
+2. **Latency Trade-Off**: The p50 latency overhead added by reranking top-25 candidates is only **+0.50 ms**, which is well within acceptable UI limits (<500ms total pipeline response).
 3. **Zero Infrastructure Overhead**: Runs seamlessly in pure Python without requiring GPU servers or external paid API rerankers.
