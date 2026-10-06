@@ -1,0 +1,2 @@
+{"ts": "2026-10-03T12:31:20Z", "server": "claims-system", "tool": "get_claim_status", "claim_number": "CLM-2024-88102", "outcome": "ok", "token_suffix": "oken"}
+{"ts": "2026-10-03T12:31:21Z", "server": "claims-system", "tool": "get_adjuster_note_history", "claim_number": "CLM-2024-88102", "outcome": "ok", "token_suffix": "oken"}

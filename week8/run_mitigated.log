@@ -1,0 +1,45 @@
+  ok  33 accepted sequences across 10 cases all score as PASS
+  ok  CLM-002 claim > notes:reviewed > excl:arson > submit               -> skipped_required_step
+  ok  CLM-007 claim > notes:reviewed > submit                            -> skipped_required_step
+  ok  CLM-001 claim > notes:reviewed > excl:water_damage > submit        -> wrong_argument_choice
+  ok  CLM-004 claim > notes:reviewed > excl:theft > submit               -> invalid_argument
+  ok  CLM-001 claim > notes:reviewed > submit                            -> invalid_argument
+  ok  CLM-005 claim > notes:reviewed > notes:reviewed > excl:hail_damage > submit -> repeated_call
+  ok  CLM-005 claim > notes:reviewed > notes:pending > excl:hail_damage > submit -> off_path_call
+  ok  CLM-001 claim > excl:flood > notes:reviewed > submit               -> ordering_violation
+  ok  CLM-006 claim > notes:reviewed                                     -> no_verdict
+  ok  CLM-007 claim > notes:reviewed > excl:water_damage > submit        -> wrong_outcome_despite_evidence
+  ok  right-answer-wrong-path is outcome PASS / trajectory FAIL
+selftest passed
+Running mitigated agent: 10 claims x 3 repeats, model=openai/gpt-oss-120b
+Writing week8/traces_mitigated.jsonl
+  r1 CLM-001  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:flood > submit  $0.004458  2.9s  
+  r1 CLM-002  outcome=FAIL  traj=FAIL  claim > notes:reviewed > notes:escalated > excl:arson  $0.004557  3.9s  ['no_verdict']
+  r1 CLM-003  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:intoxicated_driving > submit  $0.004634  3.0s  
+  r1 CLM-004  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004797  4.4s  
+  r1 CLM-005  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:hail_damage > submit  $0.004643  2.8s  
+  r1 CLM-006  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:vandalism > submit  $0.004754  3.4s  
+  r1 CLM-007  outcome=PASS  traj=FAIL  claim > notes:reviewed > excl:water_damage > submit  $0.004793  3.6s  ['invalid_argument']
+  r1 CLM-008  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:tree_damage > submit  $0.004751  3.2s  
+  r1 CLM-009  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:lightning > submit  $0.004743  3.6s  
+  r1 CLM-010  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004689  3.2s  
+  r2 CLM-001  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:flood > submit  $0.004457  3.6s  
+  r2 CLM-002  outcome=FAIL  traj=FAIL  claim > notes:reviewed > notes:escalated > excl:arson  $0.004532  2.7s  ['no_verdict']
+  r2 CLM-003  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:intoxicated_driving > submit  $0.004638  2.9s  
+  r2 CLM-004  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004748  4.0s  
+  r2 CLM-005  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:hail_damage > submit  $0.004627  4.2s  
+  r2 CLM-006  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:vandalism > submit  $0.004759  5.0s  
+  r2 CLM-007  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:water_damage > submit  $0.004871  4.1s  
+  r2 CLM-008  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:tree_damage > submit  $0.004916  3.7s  
+  r2 CLM-009  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:lightning > submit  $0.004732  3.3s  
+  r2 CLM-010  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004654  3.3s  
+  r3 CLM-001  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:flood > submit  $0.004458  3.1s  
+  r3 CLM-002  outcome=FAIL  traj=FAIL  claim > notes:reviewed > notes:escalated > excl:arson  $0.004566  2.9s  ['no_verdict']
+  r3 CLM-003  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:intoxicated_driving > submit  $0.004642  3.8s  
+  r3 CLM-004  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004683  3.1s  
+  r3 CLM-005  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:hail_damage > submit  $0.004594  2.8s  
+  r3 CLM-006  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:vandalism > submit  $0.004778  3.2s  
+  r3 CLM-007  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:water_damage > submit  $0.004783  3.1s  
+  r3 CLM-008  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:tree_damage > submit  $0.004783  3.8s  
+  r3 CLM-009  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:lightning > submit  $0.004613  3.1s  
+  r3 CLM-010  outcome=PASS  traj=PASS  claim > notes:reviewed > excl:theft > submit  $0.004658  3.1s  

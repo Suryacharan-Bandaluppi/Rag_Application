@@ -1,0 +1,278 @@
+{
+  "CLM-2024-88101": {
+    "claim_number": "CLM-2024-88101",
+    "legacy_id": "CLM-001",
+    "claimant": "Alice Morgan",
+    "policy_number": "POL-2024-001",
+    "declared_type": "water_damage",
+    "declared_amount": 15000.0,
+    "policy_excess": 500.0,
+    "submitted": "2024-03-16",
+    "status": "denied",
+    "last_updated": "2024-03-18",
+    "assigned_adjuster": "R. Okafor",
+    "note_history": [
+      {
+        "date": "2024-03-16",
+        "stage": "pending",
+        "adjuster": "J. Patel",
+        "note": "Claim received 2024-03-16. Initial photographs show significant water damage to ground floor. Adjuster assigned for field inspection."
+      },
+      {
+        "date": "2024-03-18",
+        "stage": "reviewed",
+        "adjuster": "R. Okafor",
+        "note": "Field investigation 2024-03-17: water ingress confirmed as external flooding. Millbrook Creek overflowed following 72-hour rainfall event per local authority report EA-2024-0315. This is flood damage (Clause 4.2b), not internal plumbing failure. Flood exclusion applies."
+      }
+    ]
+  },
+  "CLM-2024-88102": {
+    "claim_number": "CLM-2024-88102",
+    "legacy_id": "CLM-002",
+    "claimant": "Bernard Walsh",
+    "policy_number": "POL-2024-002",
+    "declared_type": "fire",
+    "declared_amount": 48000.0,
+    "policy_excess": 1000.0,
+    "submitted": "2024-04-03",
+    "status": "escalated",
+    "last_updated": "2024-04-09",
+    "assigned_adjuster": "M. Chen",
+    "note_history": [
+      {
+        "date": "2024-04-03",
+        "stage": "pending",
+        "adjuster": "R. Okafor",
+        "note": "Fire reported at insured premises on 2024-04-02. Fire service attended. Claim submitted next day."
+      },
+      {
+        "date": "2024-04-05",
+        "stage": "reviewed",
+        "adjuster": "S. Lindqvist",
+        "note": "Site inspection 2024-04-04: Fire investigation unit has opened an arson inquiry (case FI-2024-0112). Accelerant traces detected at two ignition points. Criminal acts exclusion (Clause 8.1) is under consideration pending investigation outcome. Senior review recommended."
+      },
+      {
+        "date": "2024-04-09",
+        "stage": "escalated",
+        "adjuster": "M. Chen",
+        "note": "Arson confirmed by FIU report dated 2024-04-09. Criminal-acts exclusion (Clause 8.1) applies. No coverage payable. Refer to legal for subrogation review."
+      }
+    ]
+  },
+  "CLM-2024-88103": {
+    "claim_number": "CLM-2024-88103",
+    "legacy_id": "CLM-003",
+    "claimant": "Carla Jennings",
+    "policy_number": "POL-2024-003",
+    "declared_type": "vehicle_accident",
+    "declared_amount": 22500.0,
+    "policy_excess": 750.0,
+    "submitted": "2024-02-28",
+    "status": "denied",
+    "last_updated": "2024-03-01",
+    "assigned_adjuster": "M. Chen",
+    "note_history": [
+      {
+        "date": "2024-02-28",
+        "stage": "pending",
+        "adjuster": "S. Lindqvist",
+        "note": "RTA reported 2024-02-27. Vehicle total-loss. Third-party damage also claimed. Awaiting police report."
+      },
+      {
+        "date": "2024-03-01",
+        "stage": "reviewed",
+        "adjuster": "M. Chen",
+        "note": "Police report TS-2024-0487 received 2024-03-01: driver blood-alcohol concentration was 0.18 at time of collision (legal limit 0.08). DUI charge filed. Policy exclusion for intoxicated driving (Clause 6.3) applies. Claim not eligible for payment."
+      }
+    ]
+  },
+  "CLM-2024-88104": {
+    "claim_number": "CLM-2024-88104",
+    "legacy_id": "CLM-004",
+    "claimant": "David Osei",
+    "policy_number": "POL-2024-004",
+    "declared_type": "theft",
+    "declared_amount": 4200.0,
+    "policy_excess": 250.0,
+    "submitted": "2024-05-10",
+    "status": "approved",
+    "last_updated": "2024-05-12",
+    "assigned_adjuster": "A. Novak",
+    "note_history": [
+      {
+        "date": "2024-05-10",
+        "stage": "pending",
+        "adjuster": "M. Chen",
+        "note": "Theft reported 2024-05-09. Office broken into overnight. Laptop, monitor and mobile phone stolen. Police report attached."
+      },
+      {
+        "date": "2024-05-12",
+        "stage": "reviewed",
+        "adjuster": "A. Novak",
+        "note": "Police report confirmed. Security footage shows forced entry. Items match policy schedule. No exclusions identified. Standard theft claim, eligible for payment less excess."
+      }
+    ]
+  },
+  "CLM-2024-88105": {
+    "claim_number": "CLM-2024-88105",
+    "legacy_id": "CLM-005",
+    "claimant": "Evelyn Tan",
+    "policy_number": "POL-2024-005",
+    "declared_type": "hail_damage",
+    "declared_amount": 6800.0,
+    "policy_excess": 500.0,
+    "submitted": "2024-06-22",
+    "status": "approved",
+    "last_updated": "2024-06-24",
+    "assigned_adjuster": "J. Patel",
+    "note_history": [
+      {
+        "date": "2024-06-22",
+        "stage": "pending",
+        "adjuster": "A. Novak",
+        "note": "Hailstorm 2024-06-20 caused roof damage. Multiple tiles cracked. Claim submitted 2024-06-22."
+      },
+      {
+        "date": "2024-06-24",
+        "stage": "reviewed",
+        "adjuster": "J. Patel",
+        "note": "Roof inspection confirms hail impact on 34 tiles and skylight frame. Damage is structural, not cosmetic. Weather data confirms severe hailstorm event in area. No pre-existing damage noted. Eligible for full repair cost less excess."
+      }
+    ]
+  },
+  "CLM-2024-88106": {
+    "claim_number": "CLM-2024-88106",
+    "legacy_id": "CLM-006",
+    "claimant": "Felix Okonkwo",
+    "policy_number": "POL-2024-006",
+    "declared_type": "vandalism",
+    "declared_amount": 1850.0,
+    "policy_excess": 250.0,
+    "submitted": "2024-07-14",
+    "status": "approved",
+    "last_updated": "2024-07-16",
+    "assigned_adjuster": "R. Okafor",
+    "note_history": [
+      {
+        "date": "2024-07-14",
+        "stage": "pending",
+        "adjuster": "J. Patel",
+        "note": "Graffiti found on exterior walls. Repair quotes obtained. Claim submitted."
+      },
+      {
+        "date": "2024-07-16",
+        "stage": "reviewed",
+        "adjuster": "R. Okafor",
+        "note": "Site visit confirmed spray-paint graffiti across three exterior panels and front entrance door. Owner is not the perpetrator. Tenant exclusion not applicable (owner-occupied property). Repair estimate reasonable. Approved less excess."
+      }
+    ]
+  },
+  "CLM-2024-88107": {
+    "claim_number": "CLM-2024-88107",
+    "legacy_id": "CLM-007",
+    "claimant": "Grace Nwosu",
+    "policy_number": "POL-2024-007",
+    "declared_type": "water_damage",
+    "declared_amount": 9500.0,
+    "policy_excess": 500.0,
+    "submitted": "2024-08-01",
+    "status": "partial_settlement",
+    "last_updated": "2024-08-03",
+    "assigned_adjuster": "S. Lindqvist",
+    "note_history": [
+      {
+        "date": "2024-08-01",
+        "stage": "pending",
+        "adjuster": "R. Okafor",
+        "note": "Burst pipe in upstairs bathroom caused ceiling collapse below. Claim submitted with repair quotes."
+      },
+      {
+        "date": "2024-08-03",
+        "stage": "reviewed",
+        "adjuster": "S. Lindqvist",
+        "note": "Internal pipe failure confirmed \u2014 no flood involvement. Ceiling and flooring in two rooms damaged. Total repair estimate GBP 9500. Policy sub-limit for internal water damage is GBP 8100. Payable amount: GBP 8100 - GBP 500 excess = GBP 7600. Partial payment applies."
+      }
+    ]
+  },
+  "CLM-2024-88108": {
+    "claim_number": "CLM-2024-88108",
+    "legacy_id": "CLM-008",
+    "claimant": "Henry Brandt",
+    "policy_number": "POL-2024-008",
+    "declared_type": "tree_damage",
+    "declared_amount": 3100.0,
+    "policy_excess": 250.0,
+    "submitted": "2024-09-05",
+    "status": "under_review",
+    "last_updated": "2024-09-07",
+    "assigned_adjuster": "M. Chen",
+    "note_history": [
+      {
+        "date": "2024-09-05",
+        "stage": "pending",
+        "adjuster": "S. Lindqvist",
+        "note": "Storm caused large oak tree to fall on garden fence and shed. Claim submitted with photos."
+      },
+      {
+        "date": "2024-09-07",
+        "stage": "reviewed",
+        "adjuster": "M. Chen",
+        "note": "Arborist report confirms tree was healthy and showed no prior disease. Damage caused by storm wind gusts (100+ km/h recorded locally). No known-risk exclusion applies. Repair estimate reviewed and verified. Eligible less excess."
+      }
+    ]
+  },
+  "CLM-2024-88109": {
+    "claim_number": "CLM-2024-88109",
+    "legacy_id": "CLM-009",
+    "claimant": "Ingrid Larsen",
+    "policy_number": "POL-2024-009",
+    "declared_type": "lightning",
+    "declared_amount": 2700.0,
+    "policy_excess": 250.0,
+    "submitted": "2024-10-12",
+    "status": "partial_settlement",
+    "last_updated": "2024-10-14",
+    "assigned_adjuster": "A. Novak",
+    "note_history": [
+      {
+        "date": "2024-10-12",
+        "stage": "pending",
+        "adjuster": "M. Chen",
+        "note": "Lightning strike caused surge damage to home electronics. TV, router and two computers affected. Claim submitted."
+      },
+      {
+        "date": "2024-10-14",
+        "stage": "reviewed",
+        "adjuster": "A. Novak",
+        "note": "Lightning event confirmed by meteorological data. Insured has whole-home surge protector installed, which is in spec. Sub-limit for electronics per event is GBP 2300. Four items totalling GBP 2700 claimed; payable capped at GBP 2300. After GBP 250 excess: GBP 2050. Partial payment applies."
+      }
+    ]
+  },
+  "CLM-2024-88110": {
+    "claim_number": "CLM-2024-88110",
+    "legacy_id": "CLM-010",
+    "claimant": "James Okafor",
+    "policy_number": "POL-2024-010",
+    "declared_type": "theft",
+    "declared_amount": 18500.0,
+    "policy_excess": 750.0,
+    "submitted": "2024-11-20",
+    "status": "under_review",
+    "last_updated": "2024-11-22",
+    "assigned_adjuster": "J. Patel",
+    "note_history": [
+      {
+        "date": "2024-11-20",
+        "stage": "pending",
+        "adjuster": "A. Novak",
+        "note": "Vehicle stolen from driveway overnight. No keyfob signal detected. Police report filed. CCTV from neighbour shows masked individuals."
+      },
+      {
+        "date": "2024-11-22",
+        "stage": "reviewed",
+        "adjuster": "J. Patel",
+        "note": "Police report confirmed. Vehicle was attended (key inside house, locked). No negligent-security exclusion applies. CCTV corroborates theft. Total loss value agreed at GBP 18500. Eligible for full amount less excess."
+      }
+    ]
+  }
+}

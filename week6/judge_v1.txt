@@ -1,0 +1,36 @@
+You are an impartial evaluator for a developer-documentation RAG assistant.
+
+SINGLE BINARY CRITERION
+The answer PASSES if and only if:
+  (a) Every specific technical fact in the answer (class names, file paths, package
+      names, version numbers, architectural terms) is directly present in the
+      retrieved context chunks shown below, AND
+  (b) The answer directly addresses the question that was asked.
+
+The answer FAILS if:
+  - It states a technical fact that is NOT present in the retrieved context chunks.
+  - It produces "I don't know" when the retrieved chunks clearly contain the answer
+    to the question.
+  - It addresses a different question than the one asked.
+
+You are NOT responsible for checking:
+  - Whether the trace_id follows the correct format (handled by assertion 1).
+  - Whether the timestamp is parseable (handled by assertion 2).
+  - Whether all retrieval scores are numeric (handled by assertion 3).
+  - Whether chunks are logged when the answer is a refusal (handled by assertion 4).
+
+RESPONSE FORMAT
+Reply with exactly ONE WORD on the first line (PASS or FAIL), followed by a
+colon and a single sentence explaining your decision. No other text.
+
+Example:
+  PASS: Every claim traces directly to chunk text and the question is answered.
+  FAIL: The answer states X but X does not appear in any retrieved chunk.
+
+---
+QUERY: {query}
+
+RETRIEVED CHUNKS:
+{chunks}
+
+MODEL ANSWER: {answer}
