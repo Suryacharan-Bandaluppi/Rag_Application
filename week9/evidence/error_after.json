@@ -1,0 +1,183 @@
+{
+  "phase": "after",
+  "tool_description": "Return the full, verbatim text of ONE policy clause, given its clause id.\n\nUse this whenever you must quote or apply a specific clause: one cited in a\ncustomer letter, in an adjuster note (\"Clause 8.1\") or in the exclusions\nschedule. Quote only from this tool's output, never from a search snippet;\nsnippets are truncated.\n\nclause_id is the section number plus an optional letter suffix, exactly as\nprinted in the policy: '3.1', '6.3', '8.1'. Drop any 'Clause' prefix. The\nletter is part of the id; an id without its letter is a different id.\n\nReturns JSON {clause_id, title, text}. If the id does not exist, the error\nnames the real ids closest to what you asked for: pick the one that fits the\nquestion and call again. Do not guess or paraphrase the clause wording.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "clause_id": {
+        "type": "string",
+        "description": "Clause id exactly as in the policy, e.g. '6.3' or '8.1'. No 'Clause' prefix; keep any letter suffix."
+      }
+    },
+    "required": [
+      "clause_id"
+    ]
+  },
+  "query": "A customer's letter says their claim was refused under 'clause 4.2' of the policy. Quote what that clause actually says.",
+  "seeded_call": [
+    [
+      "policy_docs__get_policy_clause",
+      {
+        "clause_id": "4.2"
+      }
+    ]
+  ],
+  "runs": [
+    {
+      "query": "A customer's letter says their claim was refused under 'clause 4.2' of the policy. Quote what that clause actually says.",
+      "model": "openai/gpt-oss-120b",
+      "discovered": {
+        "policy_docs": [
+          "search_policy_documents",
+          "get_policy_clause"
+        ]
+      },
+      "attached_resources": [
+        "policy://exclusions-schedule"
+      ],
+      "trace": [
+        {
+          "type": "seeded_turn",
+          "calls": [
+            [
+              "policy_docs__get_policy_clause",
+              {
+                "clause_id": "4.2"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2"
+          },
+          "is_error": true,
+          "result": "clause '4.2' not found: clause ids include a letter suffix where one exists. Ids starting with '4.2': '4.2a' (Storm), '4.2b' (Flood exclusion). Call again with the id that matches the question."
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2b"
+          },
+          "is_error": false,
+          "result": "{\"clause_id\": \"4.2b\", \"title\": \"Flood exclusion\", \"text\": \"We do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run-off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier 0.\"}"
+        }
+      ],
+      "answer": "Clause\u202f4.2b \u2013\u202fFlood exclusion  \n\n\u201cWe do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run\u2011off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier\u202f0.\u201d",
+      "total_tokens": 2427,
+      "llm_calls": 2,
+      "repeat": 1
+    },
+    {
+      "query": "A customer's letter says their claim was refused under 'clause 4.2' of the policy. Quote what that clause actually says.",
+      "model": "openai/gpt-oss-120b",
+      "discovered": {
+        "policy_docs": [
+          "search_policy_documents",
+          "get_policy_clause"
+        ]
+      },
+      "attached_resources": [
+        "policy://exclusions-schedule"
+      ],
+      "trace": [
+        {
+          "type": "seeded_turn",
+          "calls": [
+            [
+              "policy_docs__get_policy_clause",
+              {
+                "clause_id": "4.2"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2"
+          },
+          "is_error": true,
+          "result": "clause '4.2' not found: clause ids include a letter suffix where one exists. Ids starting with '4.2': '4.2a' (Storm), '4.2b' (Flood exclusion). Call again with the id that matches the question."
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2b"
+          },
+          "is_error": false,
+          "result": "{\"clause_id\": \"4.2b\", \"title\": \"Flood exclusion\", \"text\": \"We do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run-off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier 0.\"}"
+        }
+      ],
+      "answer": "Clause\u202f4.2b \u2013\u202fFlood exclusion  \n\n\u201cWe do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run\u2011off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier\u202f0.\u201d",
+      "total_tokens": 2427,
+      "llm_calls": 2,
+      "repeat": 2
+    },
+    {
+      "query": "A customer's letter says their claim was refused under 'clause 4.2' of the policy. Quote what that clause actually says.",
+      "model": "openai/gpt-oss-120b",
+      "discovered": {
+        "policy_docs": [
+          "search_policy_documents",
+          "get_policy_clause"
+        ]
+      },
+      "attached_resources": [
+        "policy://exclusions-schedule"
+      ],
+      "trace": [
+        {
+          "type": "seeded_turn",
+          "calls": [
+            [
+              "policy_docs__get_policy_clause",
+              {
+                "clause_id": "4.2"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2"
+          },
+          "is_error": true,
+          "result": "clause '4.2' not found: clause ids include a letter suffix where one exists. Ids starting with '4.2': '4.2a' (Storm), '4.2b' (Flood exclusion). Call again with the id that matches the question."
+        },
+        {
+          "type": "tool_call",
+          "server": "policy_docs",
+          "tool": "get_policy_clause",
+          "qualified": "policy_docs__get_policy_clause",
+          "args": {
+            "clause_id": "4.2b"
+          },
+          "is_error": false,
+          "result": "{\"clause_id\": \"4.2b\", \"title\": \"Flood exclusion\", \"text\": \"We do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run-off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier 0.\"}"
+        }
+      ],
+      "answer": "Clause\u202f4.2b \u2013\u202fFlood exclusion  \n\n\u201cWe do not cover any damage caused by flood, meaning water entering the property from outside from rivers, creeks, the sea, surface run\u2011off or overflowing drains. This applies whether the claim is declared as escape of water or otherwise. Flood cover requires the separate flood rider. Payout modifier\u202f0.\u201d",
+      "total_tokens": 2427,
+      "llm_calls": 2,
+      "repeat": 3
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "_about": "Raw MCP stdio exchange between week9/agent.py's client and the claims-system server, captured by week9/capture_wire.py (verbatim lines in evidence/wire_raw.jsonl). 'raw' is the exact line on the wire; 'parsed' is the same line decoded for reading; 'annotations' explains every top-level field by hand.",
+  "transport": "stdio: newline-delimited JSON-RPC 2.0 on the server's stdin/stdout; the server's stderr is a separate log channel (week9/logs/claims_system.stderr.log), never part of the protocol.",
+  "model_call_location": "The model is called only in the host (week9/agent.py, _groq_call -> Groq HTTPS), BEFORE step 6 to choose the tool and AFTER step 7 to read the result; nowhere on this wire and never inside either MCP server.",
+  "messages": [
+    {
+      "step": "1. initialize request (host -> claims-system)",
+      "direction": "client->server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"week9-claims-agent\", \"version\": \"1.0.0\"}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2025-06-18",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "week9-claims-agent",
+            "version": "1.0.0"
+          }
+        }
+      },
+      "annotations": {
+        "jsonrpc": "Protocol tag; MCP is JSON-RPC 2.0, so every message carries exactly \"2.0\".",
+        "id": "Request id 1, chosen by the client. The server must echo it so the reply can be matched; its presence makes this a request that needs an answer.",
+        "method": "\"initialize\" must be the first message on a new connection: version and capability negotiation before anything else.",
+        "params": "protocolVersion = the MCP spec revision the client speaks (2025-06-18); capabilities = what the CLIENT offers the server (empty: no sampling, roots or elicitation, so the server cannot ask our host to run a model); clientInfo = name/version of the host for the server's logs."
+      }
+    },
+    {
+      "step": "2. initialize result (claims-system -> host)",
+      "direction": "server->client",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {\"tools\": {\"listChanged\": false}}, \"serverInfo\": {\"name\": \"claims-system\", \"version\": \"0.4.2\"}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "protocolVersion": "2025-06-18",
+          "capabilities": {
+            "tools": {
+              "listChanged": false
+            }
+          },
+          "serverInfo": {
+            "name": "claims-system",
+            "version": "0.4.2"
+          }
+        }
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "id": "Echoes 1, so this is the answer to the initialize request.",
+        "result": "protocolVersion = the version the server agreed to (same as asked, so the session proceeds); capabilities = what the SERVER offers: only tools (listChanged:false = the tool list will not change mid-session; no resources, no prompts); serverInfo = claims-system 0.4.2, the third-party build we are trusting."
+      }
+    },
+    {
+      "step": "3. initialized notification (host -> claims-system)",
+      "direction": "client->server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized"
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "method": "\"notifications/initialized\": the client confirms the handshake is complete and normal operation may begin. No id, so it is a notification and gets no reply."
+      }
+    },
+    {
+      "step": "4. tools/list request (host -> claims-system)",
+      "direction": "client->server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/list\"}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "method": "tools/list"
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "id": "Request id 2.",
+        "method": "\"tools/list\": discovery. The host asks what the server can do instead of hard-coding it. No params, so this is the first page (no cursor)."
+      }
+    },
+    {
+      "step": "5. tools/list result (claims-system -> host)",
+      "direction": "server->client",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"result\": {\"tools\": [{\"name\": \"get_claim_status\", \"description\": \"Get the current status of one insurance claim by claim number: status (pending, under_review, escalated, approved, partial_settlement, denied), claimant, policy number, declared damage type, declared amount, policy excess, submitted date, last update and assigned adjuster. Claim numbers look like CLM-YYYY-nnnnn. Does not return adjuster notes.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"claim_number\": {\"type\": \"string\", \"pattern\": \"^CLM-\\\\d{4}-\\\\d{5}$\", \"description\": \"Claim number, e.g. CLM-2024-88102.\"}}, \"required\": [\"claim_number\"]}}, {\"name\": \"get_adjuster_note_history\", \"description\": \"Get the full adjuster note history for one claim, oldest first. Each entry has date, stage (pending, reviewed, escalated, denied), adjuster and the note text. Later stages supersede earlier ones: an 'escalated' note confirms or overturns a provisional 'reviewed' finding. Claim numbers look like CLM-YYYY-nnnnn.\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"claim_number\": {\"type\": \"string\", \"pattern\": \"^CLM-\\\\d{4}-\\\\d{5}$\", \"description\": \"Claim number, e.g. CLM-2024-88102.\"}}, \"required\": [\"claim_number\"]}}]}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "tools": [
+            {
+              "name": "get_claim_status",
+              "description": "Get the current status of one insurance claim by claim number: status (pending, under_review, escalated, approved, partial_settlement, denied), claimant, policy number, declared damage type, declared amount, policy excess, submitted date, last update and assigned adjuster. Claim numbers look like CLM-YYYY-nnnnn. Does not return adjuster notes.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "claim_number": {
+                    "type": "string",
+                    "pattern": "^CLM-\\d{4}-\\d{5}$",
+                    "description": "Claim number, e.g. CLM-2024-88102."
+                  }
+                },
+                "required": [
+                  "claim_number"
+                ]
+              }
+            },
+            {
+              "name": "get_adjuster_note_history",
+              "description": "Get the full adjuster note history for one claim, oldest first. Each entry has date, stage (pending, reviewed, escalated, denied), adjuster and the note text. Later stages supersede earlier ones: an 'escalated' note confirms or overturns a provisional 'reviewed' finding. Claim numbers look like CLM-YYYY-nnnnn.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "claim_number": {
+                    "type": "string",
+                    "pattern": "^CLM-\\d{4}-\\d{5}$",
+                    "description": "Claim number, e.g. CLM-2024-88102."
+                  }
+                },
+                "required": [
+                  "claim_number"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "id": "Echoes 2.",
+        "result": "tools = 2 tool definitions (get_claim_status, get_adjuster_note_history), each with name, description (the text the MODEL reads to decide when to call it) and inputSchema (JSON Schema for the arguments; claim_number pattern ^CLM-\\d{4}-\\d{5}$). No nextCursor, so this is the complete list. The host turns these into model tool schemas named claims_system__<tool>."
+      }
+    },
+    {
+      "step": "6. tools/call request (host -> claims-system)",
+      "direction": "client->server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/call\", \"params\": {\"name\": \"get_claim_status\", \"arguments\": {\"claim_number\": \"CLM-2024-88102\"}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "tools/call",
+        "params": {
+          "name": "get_claim_status",
+          "arguments": {
+            "claim_number": "CLM-2024-88102"
+          }
+        }
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "id": "Request id 3.",
+        "method": "\"tools/call\": execute one tool. In the agent this is sent only after the model asked for it; the host routes it here.",
+        "params": "name = the server-local tool name (get_claim_status, without the claims_system__ prefix the model saw); arguments = the arguments object, validated by the server (claim_number CLM-2024-88102)."
+      }
+    },
+    {
+      "step": "7. tools/call result (claims-system -> host)",
+      "direction": "server->client",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"claim_number\\\": \\\"CLM-2024-88102\\\", \\\"claimant\\\": \\\"Bernard Walsh\\\", \\\"policy_number\\\": \\\"POL-2024-002\\\", \\\"declared_type\\\": \\\"fire\\\", \\\"declared_amount\\\": 48000.0, \\\"policy_excess\\\": 1000.0, \\\"submitted\\\": \\\"2024-04-03\\\", \\\"status\\\": \\\"escalated\\\", \\\"last_updated\\\": \\\"2024-04-09\\\", \\\"assigned_adjuster\\\": \\\"M. Chen\\\"}\"}], \"isError\": false}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"claim_number\": \"CLM-2024-88102\", \"claimant\": \"Bernard Walsh\", \"policy_number\": \"POL-2024-002\", \"declared_type\": \"fire\", \"declared_amount\": 48000.0, \"policy_excess\": 1000.0, \"submitted\": \"2024-04-03\", \"status\": \"escalated\", \"last_updated\": \"2024-04-09\", \"assigned_adjuster\": \"M. Chen\"}"
+            }
+          ],
+          "isError": false
+        }
+      },
+      "annotations": {
+        "jsonrpc": "Always \"2.0\".",
+        "id": "Echoes 3.",
+        "result": "content = list of content blocks; here one text block holding the claim status as JSON (status escalated, claimant, amounts, adjuster). isError:false = the tool ran successfully. A failed lookup comes back here too, as isError:true with a readable message, not as a JSON-RPC error, so the model can see it and recover."
+      }
+    }
+  ]
+}

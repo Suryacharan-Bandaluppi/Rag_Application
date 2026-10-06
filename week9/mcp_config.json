@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "policy_docs": {
+      "command": "python3",
+      "args": ["servers/policy_docs_server.py"]
+    },
+    "claims_system": {
+      "command": "python3",
+      "args": ["third_party/claims_system_server.py"],
+      "env": {
+        "CLAIMS_SYSTEM_TOKEN": "${CLAIMS_SYSTEM_TOKEN:-local-dev-token}"
+      }
+    }
+  }
+}
