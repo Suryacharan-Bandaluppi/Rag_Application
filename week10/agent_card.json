@@ -1,0 +1,40 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "Claims Triage Orchestrator",
+  "description": "Triages one insurance claim: reads the claim record, delegates adjuster-note review and coverage/exclusions lookup to specialist workers, and returns a verdict (approved | partial | denied) with the payable amount and the exclusion or limit applied.",
+  "url": "https://claims-orchestrator.internal.example/a2a/v1",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "Claims AI (coursework)",
+    "url": "https://claims-orchestrator.internal.example"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "securitySchemes": {
+    "claimsBearer": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT",
+      "description": "Token must carry scope claims:triage; adjuster notes are read with the orchestrator's own scoped credentials, never the caller's."
+    }
+  },
+  "security": [{ "claimsBearer": [] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "triage-claim",
+      "name": "Triage a claim",
+      "description": "Given a claim id, decide approved / partial / denied and the payable amount, citing the exclusion or sub-limit applied. Pauses in input-required if a dependency needed for the decision (e.g. the exclusions service) is unavailable.",
+      "tags": ["insurance", "claims", "triage", "coverage", "exclusions"],
+      "examples": ["Triage claim CLM-001.", "{\"claim_id\": \"CLM-007\"}"],
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json"]
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": false
+}
