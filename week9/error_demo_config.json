@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "policy_docs": {
+      "command": "python3",
+      "args": ["servers/policy_docs_server.py"]
+    }
+  }
+}

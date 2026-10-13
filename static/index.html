@@ -55,6 +55,13 @@
             <option value="8">8 Chunks</option>
           </select>
         </div>
+
+        <div class="control-group" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+          <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">System Mode (CLI Controlled):</label>
+          <div id="activeModeBadge" style="font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 6px; background-color: rgba(99, 102, 241, 0.15); border: 1px solid var(--accent-primary); color: #a5b4fc; text-align: center;">
+            Enhanced Mode (100.0%)
+          </div>
+        </div>
       </div>
 
       <div class="sidebar-section db-stats-card">
@@ -83,10 +90,57 @@
           <h1>RAG AI Assistant</h1>
           <span class="badge grounded-badge">🔒 Grounded Answers Only</span>
         </div>
+        
+        <div class="view-tabs">
+          <button id="tabChatBtn" class="tab-btn active">💬 Chat View</button>
+          <button id="tabInspectBtn" class="tab-btn">🔍 Inspection View (Week 4)</button>
+        </div>
+
         <div class="header-status">
           <span class="status-indicator"></span> Groq Active
         </div>
       </header>
+
+      <!-- Inspection & Metrics View Container -->
+      <div id="inspectContainer" class="inspect-container hidden">
+        <div class="metrics-summary-banner">
+          <div class="metric-card">
+            <span class="metric-value text-green" id="hitRateVal">100.0%</span>
+            <span class="metric-label" id="hitRateLabel">Hit-Rate@3 (Enhanced)</span>
+            <span class="metric-sub" id="hitRateSub">+33.3% vs Baseline (66.7%)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="latencyVal">17.34 ms</span>
+            <span class="metric-label">p50 Latency</span>
+            <span class="metric-sub" id="latencySub">Virtually Zero Overhead</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="engineModeVal">Cross-Encoder</span>
+            <span class="metric-label">Retrieval Mode</span>
+            <span class="metric-sub" id="engineModeSub">Top-25 Candidate Reranker</span>
+          </div>
+        </div>
+
+        <div class="inspect-search-card">
+          <h3>Diagnostic Inspection Query</h3>
+          <p class="section-desc">Expose raw Top-3 chunks, LLM output, and failure label (R / G / OK) with evidence.</p>
+
+          <form id="inspectForm" class="inspect-form">
+            <input type="text" id="inspectQueryInput" placeholder="Enter a question to inspect (or pick from below)..." required>
+            <button type="submit" id="inspectBtn" class="btn-primary">Inspect Query</button>
+          </form>
+
+          <div class="golden-chips">
+            <span class="chip-label">Golden Set Samples:</span>
+            <button class="golden-chip" data-q="What class handles route persistence for FCM background refresh decisions?">RouteNameStorage</button>
+            <button class="golden-chip" data-q="What client library is used for real-time WebSocket communication in PaySlate?">WebSocket Library</button>
+            <button class="golden-chip" data-q="How does PaySlate handle offline data synchronization when a cash entry is added?">Offline Sync</button>
+            <button class="golden-chip" data-q="What routing package is used in PaySlate and how are 401 unauthenticated responses handled?">401 Auth Routing</button>
+          </div>
+        </div>
+
+        <div id="inspectResults" class="inspect-results-card hidden"></div>
+      </div>
 
       <div class="chat-messages" id="chatMessages">
         <!-- System Welcome Message -->

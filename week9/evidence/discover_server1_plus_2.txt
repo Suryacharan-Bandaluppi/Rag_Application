@@ -1,0 +1,4 @@
+4 tools discovered via tools/list from 2 server(s):
+  policy_docs: search_policy_documents, get_policy_clause
+  claims_system: get_claim_status, get_adjuster_note_history
+resources attached as context: ['policy://exclusions-schedule']

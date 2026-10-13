@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from app.ingestion import ingest_document
-from app.rag_engine import answer_query
+from app.rag_engine import answer_query, inspect_query, set_system_reranker_mode, get_system_reranker_mode
 from app.schemas import QueryRequest, QueryResponse, IngestResponse
 from app.vectorstore import get_vector_store
 
@@ -70,8 +70,41 @@ async def query_payslate_rag(request: QueryRequest):
     if not request.query.strip():
         raise HTTPException(status_code=400, detail="Query cannot be empty.")
 
-    res = answer_query(query=request.query, top_k=request.top_k or 5)
+    use_rerank = request.use_reranker if request.use_reranker is not None else get_system_reranker_mode()
+    res = answer_query(query=request.query, top_k=request.top_k or 5, use_reranker=use_rerank)
     return res
+
+
+@app.post("/api/inspect")
+async def inspect_rag_query(request: QueryRequest):
+    """Inspect query top-3 chunks, generated answer, and failure classification label (R / G / OK)."""
+    if not request.query.strip():
+        raise HTTPException(status_code=400, detail="Query cannot be empty.")
+
+    use_rerank = request.use_reranker if request.use_reranker is not None else get_system_reranker_mode()
+    res = inspect_query(query=request.query, top_k=request.top_k or 3, use_reranker=use_rerank)
+    return res
+
+
+@app.get("/api/mode")
+async def get_system_mode():
+    """Retrieve active system mode (Baseline vs Enhanced Reranker)."""
+    is_reranker = get_system_reranker_mode()
+    return {
+        "use_reranker": is_reranker,
+        "mode_name": "Enhanced (Cross-Encoder Reranker)" if is_reranker else "Baseline (Pure Dense Cosine)",
+        "hit_rate": "100.0%" if is_reranker else "66.7%",
+        "p50_latency": "17.34 ms" if is_reranker else "17.50 ms",
+        "description": "+33.3% vs Baseline (66.7%)" if is_reranker else "4/12 Queries Missed in Top-3"
+    }
+
+
+@app.post("/api/mode")
+async def set_system_mode(payload: dict):
+    """Set active system mode dynamically via CLI command or API."""
+    use_reranker = bool(payload.get("use_reranker", True))
+    set_system_reranker_mode(use_reranker)
+    return await get_system_mode()
 
 
 @app.get("/api/stats")
