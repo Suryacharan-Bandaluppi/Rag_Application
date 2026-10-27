@@ -1,0 +1,64 @@
+{
+  "trace_id": "tr_044698c89a65",
+  "ts": "2026-10-26T14:41:17Z",
+  "env": "prod",
+  "user_id": "adj-04",
+  "input_type": "excess_question",
+  "prompt_version": "coverage-v1.0",
+  "retrieval_version": "bm25-k3-v1",
+  "model": "openai/gpt-oss-120b",
+  "claim_number": null,
+  "query_redacted": "Big storm Saturday night, the street gullies couldnt cope and rainwater came in under the front door. Ground floor carpets and kitchen units ruined, \u00a39k, excess \u00a3350. Storm claim - what do we pay?",
+  "answer_redacted": "The storm-driven rain that entered through the front door caused damage to the carpets and kitchen units, which falls under the storm coverage. After applying the policy excess of \u00a3350, the payable amount is \u00a38,650.",
+  "decision": "covered",
+  "payable_gbp": 8650,
+  "clauses_cited": [
+    "4.2a",
+    "1.1"
+  ],
+  "context_ids": [
+    "4.2a",
+    "1.2",
+    "1.1"
+  ],
+  "status": "ok",
+  "latency_ms": 1339.1,
+  "tokens": 793,
+  "cost_usd": 0.0007137,
+  "spans": [
+    {
+      "span": "retrieve.policy_clauses",
+      "stage": "retrieval",
+      "latency_ms": 0.1,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "tokens": 0,
+      "cost_usd": 0.0,
+      "attrs": {
+        "top_k": 3,
+        "context_ids": [
+          "4.2a",
+          "1.2",
+          "1.1"
+        ],
+        "scores": [
+          7.311,
+          6.836,
+          5.206
+        ]
+      }
+    },
+    {
+      "span": "llm.generate",
+      "stage": "generation",
+      "latency_ms": 1339.0,
+      "prompt_tokens": 547,
+      "completion_tokens": 246,
+      "tokens": 793,
+      "cost_usd": 0.0007137,
+      "attrs": {
+        "decision": "covered"
+      }
+    }
+  ]
+}

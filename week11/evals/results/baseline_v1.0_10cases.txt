@@ -1,0 +1,16 @@
+SUITE week11/evals/cases  label=baseline_v1.0_10cases  prompt_version=coverage-v1.0  cases=10
+
+  FAIL  C01  decision=covered            payable=14500    cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_8a30cff7db00
+        why: decision 'covered' != expected 'not_covered'; payable 14500 on a not_covered case
+  PASS  C02  decision=not_covered        payable=None     cited=['8.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_9066c8680c52
+  FAIL  C03  decision=cannot_determine   payable=None     cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_5f98d9fccd0b
+        why: decision 'cannot_determine' != expected 'not_covered'
+  PASS  C04  decision=covered            payable=3950     cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_f98bc93e565b
+  PASS  C05  decision=covered            payable=6300     cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_8344adc73225
+  PASS  C06  decision=covered            payable=1600     cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_c71a24c5527d
+  PASS  C07  decision=partially_covered  payable=7600     cited=['1.2', '1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_8ecb975b49c4
+  PASS  C08  decision=covered            payable=2850     cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_fd5bbbeec37b
+  PASS  C09  decision=partially_covered  payable=2050     cited=['1.2', '1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_d6f6fa4c07b6
+  PASS  C10  decision=covered            payable=17750    cited=['1.1'] ctx=['1.1', '1.2', '8.1']  trace=tr_8268963ace21
+
+SUITE RESULT: 8/10 passed  (RED)

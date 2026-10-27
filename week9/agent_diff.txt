@@ -1,0 +1,20 @@
+# agent_diff.txt — agent module: server one  vs  server one + two
+#
+# Agent module = week9/agent.py + week9/mcp_client.py (all host-side code).
+# Snapshot taken when mcp_config.json listed only policy_docs:  week9/evidence/server1_snapshot/
+# Compared against the working tree after claims_system was added to mcp_config.json.
+#
+$ git diff --no-index --stat --exit-code week9/evidence/server1_snapshot/agent.py week9/agent.py
+exit code: 0   (0 = no differences)
+
+$ git diff --no-index --stat --exit-code week9/evidence/server1_snapshot/mcp_client.py week9/mcp_client.py
+exit code: 0   (0 = no differences)
+
+$ git diff --no-index --numstat week9/evidence/server1_snapshot/agent.py week9/agent.py week9/evidence/server1_snapshot/mcp_client.py week9/mcp_client.py | wc -l
+0
+
+# Git blob ids (identical content => identical id):
+  agent.py  server1=d4f811a80e0ad7d4ccbe89e1087512fb8ac5da77  server1+2=d4f811a80e0ad7d4ccbe89e1087512fb8ac5da77
+  mcp_client.py  server1=090540135e050c8238ef04045a4167ab3aa07b90  server1+2=090540135e050c8238ef04045a4167ab3aa07b90
+
+CHANGED LINES IN AGENT MODULE: 0 added, 0 removed

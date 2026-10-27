@@ -1,0 +1,932 @@
+{
+  "cases": [
+    {
+      "trace_id": "TE14-78e5b0",
+      "candidate_id": "E14",
+      "mode": "corpus_gap",
+      "question": "What is the minimum Dart SDK version required for PaySlate?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer contains no unsupported facts and directly addresses the question, and the retrieved chunks do not provide the required SDK version."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The minimum Dart SDK version is documented in the PaySlate Dependencies PDF (pubspec.yaml), but the retrieved chunks lack this information, so “I don’t know” is an incorrect answer."
+      }
+    },
+    {
+      "trace_id": "TE17-709823",
+      "candidate_id": "E17",
+      "mode": "vocabulary_gap",
+      "question": "What flavors does PaySlate support and how are they configured?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer only states lack of information, which is appropriate since the retrieved chunks do not contain any details about PaySlate flavors."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The query concerns app flavors, which are documented in the PaySlate Project Flow PDF, but the retrieved chunks do not contain that information, making the “I don’t know” response incorrect."
+      }
+    },
+    {
+      "trace_id": "TE18-344cc4",
+      "candidate_id": "E18",
+      "mode": "corpus_gap",
+      "question": "What is the database schema for the cash entry model in PaySlate?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer contains no unsupported facts and correctly states it cannot answer, as the retrieved chunks do not provide the requested schema."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The retrieved chunks contain no database schema details, so “I don’t know” correctly reflects the genuine gap in the PaySlate corpus."
+      }
+    },
+    {
+      "trace_id": "TE19-83488f",
+      "candidate_id": "E19",
+      "mode": "vocabulary_gap",
+      "question": "How does PaySlate handle push notifications when the app is completely closed?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer only states lack of knowledge and does not assert any facts not found in the chunks."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The answer says “I don’t know,” but the PaySlate Project Flow PDF documents FCM push notification handling, so the information exists in the corpus and the refusal is incorrect."
+      }
+    },
+    {
+      "trace_id": "TE21-860319",
+      "candidate_id": "E21",
+      "mode": "header_displacement",
+      "question": "What is the purpose of the RouteNameStorage class in PaySlate?",
+      "answer": "RouteNameStorage’s purpose is to persist the most‑recent route name so that Firebase Cloud Messaging handlers can determine whether they need to refresh the currently visible screen or simply queue data updates to be applied in the background.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All technical details in the answer are directly supported by the retrieved chunk and it answers the asked question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states that RouteNameStorage persists the latest route name for FCM handlers to decide screen refresh versus background data queuing, which is directly supported by the retrieved chunk."
+      }
+    },
+    {
+      "trace_id": "TE22-c814db",
+      "candidate_id": "E22",
+      "mode": "vocabulary_gap",
+      "question": "What packages does PaySlate currently use for state management?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer contains no unsupported technical facts and directly responds to the question."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The corpus documents state‑management packages (e.g., provider, Bloc/Cubit) but the retrieved chunks contain none of this information, so “I don’t know” is incorrect."
+      }
+    },
+    {
+      "trace_id": "TE24-db8ccd",
+      "candidate_id": "E24",
+      "mode": "header_displacement",
+      "question": "What is the architecture pattern used in PaySlate — Clean Architecture, MVC, or MVVM?",
+      "answer": "The PaySlate app follows a **Clean Architecture** pattern. This is indicated by references such as “This document is the bridge between product behavior and clean architecture” and “Data Flow per Screen (Clean Architecture).”",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All technical claims (Clean Architecture) are supported by the retrieved chunks and the question is directly answered."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states Clean Architecture, which is explicitly mentioned in the retrieved chunks, and directly answers the query."
+      }
+    },
+    {
+      "trace_id": "TE25-827cf6",
+      "candidate_id": "E25",
+      "mode": "corpus_gap",
+      "question": "What version of Flutter SDK does PaySlate require as a minimum?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly indicates lack of information, as no retrieved chunk provides the minimum Flutter SDK version."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The minimum Flutter SDK version is documented in the PaySlate Dependencies PDF, but the retrieved chunks do not contain it, so “I don’t know” is an incorrect refusal."
+      }
+    },
+    {
+      "trace_id": "TE26-05538c",
+      "candidate_id": "E26",
+      "mode": "corpus_gap",
+      "question": "How does PaySlate implement API pagination for large data sets?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The response contains no unsupported facts and correctly indicates the answer cannot be derived from the given chunks."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly says “I don’t know” because none of the retrieved chunks contain any information about API pagination, and such details are not part of the PaySlate corpus."
+      }
+    },
+    {
+      "trace_id": "TE28-f3d543",
+      "candidate_id": "E28",
+      "mode": "header_displacement",
+      "question": "How does PaySlate implement the offline-first architecture for data synchronization?",
+      "answer": "PaySlate’s offline‑first approach is built into its data‑layer logic:\n\n* **Network detection** – The `connectivity_plus` package powers a `NetworkInfo` service. Repositories consult this service to decide whether to fetch data from a remote source or fall back to a local source. 【02-Dependencies-Guidelines.docx.pdf-e3e3bdb4-55】\n\n* **Local persistence** – When offline, data is stored and read from local stores:\n  * `isar` (with `isar_flutter_libs`) provides an object‑relational database for entries, books, accounts, supporting indexed queries and async transactions. 【02-Dependencies-Guidelines.docx.pdf-e3e3bdb4-55】\n  * `shared_preferences` holds simple primitives such as tokens, flags, last‑route, and feature flags. 【02-Dependencies-Guidelines.docx.pdf-e3e3bdb4-55】\n\nTogether, network status determines the data source, and the local Isar/SharedPreferences stores enable the app to operate and synchronize data even when the device is offline.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All technical details cited are found in the provided chunks and the answer directly explains PaySlate’s offline‑first data synchronization approach."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer’s technical details (connectivity_plus, NetworkInfo, isar, shared_preferences) are all in the retrieved chunks and it directly answers the offline‑first architecture question."
+      }
+    },
+    {
+      "trace_id": "TE29-17727a",
+      "candidate_id": "E29",
+      "mode": "vocabulary_gap",
+      "question": "What is PaySlate?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "FAIL",
+        "reason": "The response says “I don’t know” instead of providing an answer, so it does not directly address the question."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The answer incorrectly says “I don’t know” even though the PaySlate Project Flow PDF includes an overview of what PaySlate is, making the response a retrieval‑gap error."
+      }
+    },
+    {
+      "trace_id": "TE30-247528",
+      "candidate_id": "E30",
+      "mode": "corpus_gap",
+      "question": "How does PaySlate handle deep links and universal links on iOS and Android?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The response only states lack of knowledge and contains no facts absent from the retrieved chunks, and the chunks do not provide the requested deep‑link details."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The corpus does not contain information on deep or universal link handling, so the “I don’t know” response correctly reflects the genuine gap."
+      }
+    },
+    {
+      "trace_id": "TG01-196cf7",
+      "candidate_id": "G01",
+      "mode": "ok",
+      "question": "What version of isar is used for local storage in pubspec.yaml?",
+      "answer": "The `isar` package is specified with version **^3.1.0+1** in the pubspec.yaml.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer’s version claim matches the ^3.1.0+1 entry for isar in the retrieved chunks and directly answers the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states the isar version ^3.1.0+1, which is directly supported by the retrieved context."
+      }
+    },
+    {
+      "trace_id": "TG02-8b1aa4",
+      "candidate_id": "G02",
+      "mode": "ok",
+      "question": "Which Dart service handles FCM notifications in PaySlate and where is it located?",
+      "answer": "The FCM notifications are handled by the **FcmDataHandler** service, which is implemented in the file:\n\n**`lib/core/services/firebase/fcm_data_handler.dart`**.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer’s facts (service name FcmDataHandler and its file path lib/core/services/firebase/fcm_data_handler.dart) are directly found in the retrieved chunks and it answers the asked question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly cites the FcmDataHandler service and its file path, both present in the retrieved chunks."
+      }
+    },
+    {
+      "trace_id": "TG03-1f4fe1",
+      "candidate_id": "G03",
+      "mode": "rank_mismatch",
+      "question": "What package and version are used for biometric unlock on the MPIN screen?",
+      "answer": "The biometric unlock on the MPIN screen uses the **`local_auth`** package, version **`^2.1.7`**.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer’s package name and version match the information in the retrieved chunk and it answers the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly cites the `local_auth` package version `^2.1.7` as stated in the retrieved chunk."
+      }
+    },
+    {
+      "trace_id": "TG04-e565b3",
+      "candidate_id": "G04",
+      "mode": "rank_mismatch",
+      "question": "What is the entry point file for the staging flavor in PaySlate?",
+      "answer": "The staging flavor’s entry point is **`lib/main_staging.dart`**.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states the staging entry point `lib/main_staging.dart`, which is directly mentioned in the retrieved chunks and answers the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states the staging entry point as lib/main_staging.dart, which is directly supported by the retrieved chunks."
+      }
+    },
+    {
+      "trace_id": "TG05-fbf6cc",
+      "candidate_id": "G05",
+      "mode": "low_floor",
+      "question": "How does PaySlate handle offline data synchronization when a cash entry is added?",
+      "answer": "When a cash entry is added, PaySlate checks the network state:\n\n* **Online** – the entry is sent to the remote data source (`remoteDataSource.addCashEntry(dto)`) and also cached locally (`localDataSource.cache(dto)`).\n* **Offline** – the entry is stored locally in a sync queue (`localDataSource.queueForSync(dto)`) to be synchronized later when the network is available.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All technical details (remoteDataSource.addCashEntry, localDataSource.cache, localDataSource.queueForSync) are directly from the retrieved chunk and the answer addresses the offline synchronization question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states the offline handling steps (queueForSync) that are directly present in the retrieved chunk and directly addresses the question."
+      }
+    },
+    {
+      "trace_id": "TG08-f0738e",
+      "candidate_id": "G08",
+      "mode": "ok",
+      "question": "What state management package is being phased out in PaySlate, and what is replacing it?",
+      "answer": "The state‑management package being phased out is **`provider`** (version ^6.0.5), and it is being replaced by **Cubit/Bloc** implementations in each feature’s presentation layer.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All technical facts (provider ^6.0.5 and replacement by Cubit/Bloc) appear in the retrieved chunks and the answer addresses the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states that the provider package (^6.0.5) is being phased out and replaced by Cubit/Bloc, which is directly supported by the retrieved chunks."
+      }
+    },
+    {
+      "trace_id": "TG09-82b09a",
+      "candidate_id": "G09",
+      "mode": "ok",
+      "question": "What class handles route persistence for FCM background refresh decisions?",
+      "answer": "The class is **`RouteNameStorage`**.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly names RouteNameStorage, which is mentioned in the retrieved chunks, and directly answers the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly names RouteNameStorage, which is explicitly mentioned in the retrieved chunks as the class persisting routes for FCM background refresh decisions."
+      }
+    },
+    {
+      "trace_id": "TG10-e49e44",
+      "candidate_id": "G10",
+      "mode": "low_floor",
+      "question": "What are the four checklist steps required before introducing a new package to PaySlate?",
+      "answer": "The checklist contains four steps:\n\n1. **Add the package** to `pubspec.yaml` under the appropriate section (state / UI / media / etc).  \n2. **Run** `flutter pub get`.  \n3. **Add a one‑line “Why” entry** to the dependencies document; if you can’t justify it in one line, reconsider the package.  \n4. If the package **bundles native code** (e.g., contains a `_platform_interface`), **test it on both iOS and Android** before merging.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "All four checklist steps are directly stated in the retrieved chunk and the answer addresses the question."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The answer correctly lists the four checklist steps exactly as described in the retrieved chunk."
+      }
+    },
+    {
+      "trace_id": "TN21-0ef869",
+      "candidate_id": "N21",
+      "mode": "vocabulary_gap",
+      "question": "What routing package does PaySlate use for navigation?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states it lacks the information, and no routing package is mentioned in the provided chunks."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The routing package (go_router) is documented in the PaySlate corpus, but the retrieved chunks do not contain it, making the “I don’t know” response incorrect."
+      }
+    },
+    {
+      "trace_id": "TN22-a86108",
+      "candidate_id": "N22",
+      "mode": "vocabulary_gap",
+      "question": "What is the stomp_dart_client package version used in PaySlate?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states lack of information, as the stomp_dart_client version is not present in any retrieved chunk."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The stomp_dart_client version is documented in the PaySlate Dependencies PDF, but the retrieved chunks do not contain it, making the “I don’t know” response incorrect."
+      }
+    },
+    {
+      "trace_id": "TN23-470403",
+      "candidate_id": "N23",
+      "mode": "vocabulary_gap",
+      "question": "What flavors does PaySlate support and how are they configured?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly says it doesn't know, as the retrieved chunks contain no information about PaySlate flavors or their configuration."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The answer should not be \"I don't know\" because the corpus contains information about app flavors (dev/staging/production), but the retrieved chunks do not include it, indicating a retrieval failure."
+      }
+    },
+    {
+      "trace_id": "TN24-639ee8",
+      "candidate_id": "N24",
+      "mode": "vocabulary_gap",
+      "question": "How does PaySlate handle push notifications when the app is completely closed?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer only states lack of information and does not assert any facts not found in the retrieved chunks."
+      },
+      "judge_v2": {
+        "verdict": "FAIL",
+        "reason": "The PaySlate Project Flow PDF covers FCM push notification handling, so the answer exists; responding “I don’t know” is incorrect."
+      }
+    },
+    {
+      "trace_id": "TN25-d8a63b",
+      "candidate_id": "N25",
+      "mode": "corpus_gap",
+      "question": "What are the exact API base URLs used by the dev, staging, and production flavors in PaySlate?",
+      "answer": "I don't know based on the provided documents.",
+      "assertions": [
+        [
+          "assert_trace_id_format",
+          true,
+          ""
+        ],
+        [
+          "assert_timestamp_parseable",
+          true,
+          ""
+        ],
+        [
+          "assert_scores_numeric",
+          true,
+          ""
+        ],
+        [
+          "assert_chunks_on_refusal",
+          true,
+          ""
+        ]
+      ],
+      "judge_v1": {
+        "verdict": "PASS",
+        "reason": "The answer correctly states it lacks the information, as the retrieved chunks do not provide exact API base URLs."
+      },
+      "judge_v2": {
+        "verdict": "PASS",
+        "reason": "The retrieved chunks do not contain any exact API base URLs for the dev, staging, or production flavors, so “I don’t know” is the correct response."
+      }
+    }
+  ],
+  "agreement_v1": 18,
+  "agreement_v2": 23,
+  "total": 25
+}

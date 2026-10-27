@@ -1,0 +1,5 @@
+Who wrote it: the Claims Platform team (claims-system v0.4.2, week9/third_party/), not us; we run their code unreviewed in our agent process tree, with no pinned hash or signature.
+What it reaches: the entire claims store (every claim's status, claimant, amounts and full adjuster note history), read-only, via 2 tools, and because our host spawns it with the full environment, it can also read our GROQ_API_KEY.
+What it logs: one stderr line per call with timestamp, tool, claim number, outcome and the token's last 4 characters (a partial secret in our logs); it does not log note text.
+Stolen token: CLAIMS_SYSTEM_TOKEN is not scoped per claim or per tool, so a thief could read the adjuster notes and claimant details of every open claim; with no rate limit, it could dump the whole store.
+Ship or don't: DON'T ship yet; first pass servers an allow-listed env (not ours), scope the token to status-only, drop the token suffix from logs and pin the build. Then ship status lookups; note history only after review.

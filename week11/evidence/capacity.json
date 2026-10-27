@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-26",
+  "requests": 46,
+  "llm_calls": 68,
+  "llm_calls_per_request": 1.48,
+  "tokens": 56769,
+  "cost_usd": 0.051092,
+  "cost_per_request_usd": 0.0011107,
+  "peak_minute": "2026-10-26T12:34",
+  "peak_minute_tokens": 3376,
+  "busiest_hour": "2026-10-26T08",
+  "busiest_hour_avg_tokens_per_minute": 154.7,
+  "latency_p50_s": 1.5,
+  "latency_p99_s": 13.27,
+  "limits": {
+    "requests_per_day": 1000,
+    "tokens_per_minute": 8000
+  },
+  "at_10x": {
+    "llm_calls_per_day": 680,
+    "peak_minute_tokens": 33760,
+    "busiest_hour_avg_tokens_per_minute": 1546.8,
+    "cost_per_day_usd": 0.5109
+  },
+  "breaks_at_multiplier": {
+    "requests_per_day_limit": 14.71,
+    "tokens_per_minute_limit_at_peak_minute": 2.37,
+    "tokens_per_minute_limit_at_busiest_hour_avg": 51.72
+  }
+}

@@ -1,0 +1,15 @@
+SUITE week11/evals/cases  label=GREEN_rerun_v1.1  prompt_version=coverage-v1.1  cases=11
+
+  PASS  C01  decision=not_covered        payable=0        cited=['4.2b'] ctx=['4.2b', '3.1', '8.1']  trace=tr_675d92d2cbcb
+  PASS  C02  decision=not_covered        payable=0        cited=['8.1'] ctx=['8.1', '5.1', '6.3']  trace=tr_6e88d9efd6d7
+  PASS  C03  decision=not_covered        payable=0        cited=['6.3'] ctx=['6.3', '8.1', '6.1']  trace=tr_e7f2ea2c3463
+  PASS  C04  decision=covered            payable=3950     cited=['7.1', '1.1'] ctx=['7.1', '1.1', '1.2']  trace=tr_2a6f53416238
+  PASS  C05  decision=covered            payable=6300     cited=['7.4'] ctx=['7.4', '3.1', '9.1', '4.2b']  trace=tr_540a9ace6284
+  PASS  C06  decision=covered            payable=1600     cited=['7.5'] ctx=['8.1', '1.1', '4.2b', '7.5']  trace=tr_29a639ca1172
+  PASS  C07  decision=partially_covered  payable=7600     cited=['3.1', '1.2'] ctx=['3.1', '4.2b', '1.2']  trace=tr_cddc7ff24750
+  PASS  C08  decision=covered            payable=2850     cited=['7.6'] ctx=['7.6', '4.2a', '4.2b']  trace=tr_d9cc4cad226a
+  PASS  C09  decision=partially_covered  payable=2050     cited=['7.7', '1.2'] ctx=['7.7', '1.2', '3.1', '4.2b']  trace=tr_a7a0e0fa72d9
+  PASS  C10  decision=covered            payable=17750    cited=['7.1'] ctx=['7.1', '6.1', '6.3']  trace=tr_3fd6c0d61620
+  PASS  C11  decision=not_covered        payable=0        cited=['4.2b'] ctx=['4.2a', '7.6', '1.2', '4.2b']  trace=tr_66fa58434e1e
+
+SUITE RESULT: 11/11 passed  (GREEN)
