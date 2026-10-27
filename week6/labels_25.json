@@ -1,0 +1,192 @@
+{
+  "_meta": {
+    "labeler": "Suryacharan-Bandaluppi",
+    "label_date": "2026-09-29",
+    "criterion": "PASS if an expert PaySlate developer would consider this answer USEFUL AND CORRECT given the full documentation context. FAIL if the app returns 'I don't know' on a question whose answer IS documented in the PaySlate corpus (vocabulary-gap miss), or if the answer contains claims not in the retrieved chunks.",
+    "note": "Labels written blind — eval.py and judge not yet run. Commit timestamp proves ordering.",
+    "binary_values": ["PASS", "FAIL"]
+  },
+  "labels": [
+    {
+      "trace_id": "TE14-78e5b0",
+      "candidate_id": "E14",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "Dart SDK minimum version is genuinely absent from both PaySlate PDFs; 'I don't know' is the correct and only honest answer."
+    },
+    {
+      "trace_id": "TE17-709823",
+      "candidate_id": "E17",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "PaySlate has three documented flavors (dev/staging/production). The answer 'I don't know' is factually wrong for any developer working with this codebase. Retrieval failure, not a knowledge gap."
+    },
+    {
+      "trace_id": "TE18-344cc4",
+      "candidate_id": "E18",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "Cash entry DB schema fields are not documented in either PDF; 'I don't know' is correct."
+    },
+    {
+      "trace_id": "TE19-83488f",
+      "candidate_id": "E19",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "FCM (push notifications) handling IS documented in the Project-Flow PDF. 'I don't know' is wrong because the FCM handler and its behavior are described in detail."
+    },
+    {
+      "trace_id": "TE21-860319",
+      "candidate_id": "E21",
+      "mode": "header_displacement",
+      "label": "PASS",
+      "reasoning": "Answer correctly and faithfully describes RouteNameStorage's purpose using text from chunk 3 of the retrieved context."
+    },
+    {
+      "trace_id": "TE22-c814db",
+      "candidate_id": "E22",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "The Dependencies PDF explicitly documents provider (being phased out) and Cubit/Bloc (replacing it). 'I don't know' is wrong; the answer exists in the corpus."
+    },
+    {
+      "trace_id": "TE24-db8ccd",
+      "candidate_id": "E24",
+      "mode": "header_displacement",
+      "label": "PASS",
+      "reasoning": "Answer quotes 'bridge between product behavior and clean architecture' and 'Data Flow per Screen (Clean Architecture)' both of which appear verbatim in the retrieved chunks."
+    },
+    {
+      "trace_id": "TE25-827cf6",
+      "candidate_id": "E25",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "Flutter SDK minimum version is not stated in either document; 'I don't know' is correct."
+    },
+    {
+      "trace_id": "TE26-05538c",
+      "candidate_id": "E26",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "API pagination is not covered in either PDF; 'I don't know' is correct."
+    },
+    {
+      "trace_id": "TE28-f3d543",
+      "candidate_id": "E28",
+      "mode": "header_displacement",
+      "label": "PASS",
+      "reasoning": "The answer correctly cites connectivity_plus and the NetworkInfo service, both present in the third retrieved chunk. Answer is faithful."
+    },
+    {
+      "trace_id": "TE29-17727a",
+      "candidate_id": "E29",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "Both PDFs open with a description of what PaySlate is. 'I don't know based on the provided documents' is the worst possible answer to this question from a usability standpoint."
+    },
+    {
+      "trace_id": "TE30-247528",
+      "candidate_id": "E30",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "Deep links / universal links are not covered in either PDF; 'I don't know' is correct."
+    },
+    {
+      "trace_id": "TG01-196cf7",
+      "candidate_id": "G01",
+      "mode": "ok",
+      "label": "PASS",
+      "reasoning": "Correctly returns isar: ^3.1.0+1 directly from retrieved chunk text."
+    },
+    {
+      "trace_id": "TG02-8b1aa4",
+      "candidate_id": "G02",
+      "mode": "ok",
+      "label": "PASS",
+      "reasoning": "Correctly names FcmDataHandler and its exact file path, both present in the top retrieved chunk."
+    },
+    {
+      "trace_id": "TG03-1f4fe1",
+      "candidate_id": "G03",
+      "mode": "rank_mismatch",
+      "label": "PASS",
+      "reasoning": "local_auth: ^2.1.7 is present in chunk 1 (same chunk that starts with dartz). Answer is faithful and correct."
+    },
+    {
+      "trace_id": "TG04-e565b3",
+      "candidate_id": "G04",
+      "mode": "rank_mismatch",
+      "label": "PASS",
+      "reasoning": "lib/main_staging.dart is present in chunk 2 of the retrieved context. Answer is correct."
+    },
+    {
+      "trace_id": "TG05-fbf6cc",
+      "candidate_id": "G05",
+      "mode": "low_floor",
+      "label": "PASS",
+      "reasoning": "Correctly describes the online/offline cash entry flow using the pseudocode chunk retrieved at score 0.295."
+    },
+    {
+      "trace_id": "TG08-f0738e",
+      "candidate_id": "G08",
+      "mode": "ok",
+      "label": "PASS",
+      "reasoning": "Correctly identifies provider being replaced by Cubit/Bloc, directly from the state management section chunk."
+    },
+    {
+      "trace_id": "TG09-82b09a",
+      "candidate_id": "G09",
+      "mode": "ok",
+      "label": "PASS",
+      "reasoning": "RouteNameStorage is the correct class name. The question asked 'what class' — the answer gives the class name from the retrieved context."
+    },
+    {
+      "trace_id": "TG10-e49e44",
+      "candidate_id": "G10",
+      "mode": "low_floor",
+      "label": "PASS",
+      "reasoning": "All four checklist steps are present verbatim in chunk 1 text. Answer is complete and faithful."
+    },
+    {
+      "trace_id": "TN21-0ef869",
+      "candidate_id": "N21",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "go_router IS documented: chunk 2 of TG09 explicitly states 'PaySlate uses `go_router` with named routes.' The query phrasing 'routing package for navigation' failed to retrieve this chunk."
+    },
+    {
+      "trace_id": "TN22-a86108",
+      "candidate_id": "N22",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "stomp_dart_client IS in the Dependencies PDF (golden set Q11 confirms it). 'I don't know' is wrong; the answer exists in the corpus."
+    },
+    {
+      "trace_id": "TN23-470403",
+      "candidate_id": "N23",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "REGRESSION of TE17. Exact same query, exact same wrong 'I don't know'. Confirms the vocabulary-gap failure is stable, not a one-off retrieval accident."
+    },
+    {
+      "trace_id": "TN24-639ee8",
+      "candidate_id": "N24",
+      "mode": "vocabulary_gap",
+      "label": "FAIL",
+      "reasoning": "REGRESSION of TE19. Exact same query, exact same wrong 'I don't know'. FCM push notification handling IS documented in Project-Flow PDF."
+    },
+    {
+      "trace_id": "TN25-d8a63b",
+      "candidate_id": "N25",
+      "mode": "corpus_gap",
+      "label": "PASS",
+      "reasoning": "Specific API endpoint URLs are not documented in either PDF; 'I don't know' is the correct and only honest answer."
+    }
+  ],
+  "_summary": {
+    "total": 25,
+    "PASS": 17,
+    "FAIL": 8,
+    "FAIL_trace_ids": ["TE17-709823","TE19-83488f","TE22-c814db","TE29-17727a","TN21-0ef869","TN22-a86108","TN23-470403","TN24-639ee8"]
+  }
+}
