@@ -1,0 +1,194 @@
+{
+  "label": "RED_before_fix_v1.0",
+  "prompt_version": "coverage-v1.0",
+  "passed": 7,
+  "total": 11,
+  "results": [
+    {
+      "case_id": "C01",
+      "pass": false,
+      "why": [
+        "decision 'cannot_determine' != expected 'not_covered'"
+      ],
+      "trace_id": "tr_62de3e2258a6",
+      "decision": "cannot_determine",
+      "payable_gbp": null,
+      "clauses_cited": [],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C02",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_1f59f9f176d4",
+      "decision": "not_covered",
+      "payable_gbp": null,
+      "clauses_cited": [
+        "8.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C03",
+      "pass": false,
+      "why": [
+        "decision 'cannot_determine' != expected 'not_covered'"
+      ],
+      "trace_id": "tr_7b994bb45f8e",
+      "decision": "cannot_determine",
+      "payable_gbp": null,
+      "clauses_cited": [],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C04",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_b115ec9610e6",
+      "decision": "covered",
+      "payable_gbp": 3950,
+      "clauses_cited": [
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C05",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_5930b7dd4912",
+      "decision": "covered",
+      "payable_gbp": 6300,
+      "clauses_cited": [
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C06",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_26fb5fbbaae6",
+      "decision": "covered",
+      "payable_gbp": 1600,
+      "clauses_cited": [
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C07",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_2539238df437",
+      "decision": "partially_covered",
+      "payable_gbp": 7600,
+      "clauses_cited": [
+        "1.2",
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C08",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_9fcd44e7e1c8",
+      "decision": "covered",
+      "payable_gbp": 2850,
+      "clauses_cited": [
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C09",
+      "pass": true,
+      "why": [],
+      "trace_id": "tr_0715e88c6dc0",
+      "decision": "partially_covered",
+      "payable_gbp": 2050,
+      "clauses_cited": [
+        "1.2",
+        "1.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C10",
+      "pass": false,
+      "why": [
+        "decision 'not_covered' != expected 'covered'",
+        "payable None != expected 17750.0"
+      ],
+      "trace_id": "tr_241ad4d69825",
+      "decision": "not_covered",
+      "payable_gbp": null,
+      "clauses_cited": [
+        "8.1"
+      ],
+      "context_ids": [
+        "1.1",
+        "1.2",
+        "8.1"
+      ]
+    },
+    {
+      "case_id": "C11",
+      "pass": false,
+      "why": [
+        "decision 'covered' != expected 'not_covered'",
+        "payable 8650 on a not_covered case",
+        "must cite one of ['4.2b'], cited ['4.2a', '1.1']"
+      ],
+      "trace_id": "tr_cc01e4252cc1",
+      "decision": "covered",
+      "payable_gbp": 8650,
+      "clauses_cited": [
+        "4.2a",
+        "1.1"
+      ],
+      "context_ids": [
+        "4.2a",
+        "1.2",
+        "1.1"
+      ]
+    }
+  ]
+}
