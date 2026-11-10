@@ -1,0 +1,122 @@
+# handoffs.log — every hand-off in the race, with token counts
+# model=openai/gpt-oss-120b  pricing=$0.90/1M tokens in+out (week7 constants)
+# Orchestrator arm: one line per LLM call, labelled by the hand-off that caused it.
+#   'user -> orchestrator'          = orchestrator's first call
+#   'X -> orchestrator'             = orchestrator call that re-sends its full history after X returned
+#   'orchestrator -> W worker'      = an LLM call inside worker W (gets only its narrow input)
+# Single arm: no hand-offs (one agent); one total line per case for comparison.
+#
+# case     arm          seq  hand-off                                   agent              prompt  compl  total
+  CLM-001  single         -  (no hand-off: single agent, 4 calls)       single_agent         4302    231   4533
+  CLM-001  orchestrator   1  user -> orchestrator                       orchestrator          714     51    765
+  CLM-001  orchestrator   2  get_claim -> orchestrator                  orchestrator          839     33    872
+  CLM-001  orchestrator   3  orchestrator -> notes worker               notes_worker          573    133    706
+  CLM-001  orchestrator   4  orchestrator -> notes worker               notes_worker          790    158    948
+  CLM-001  orchestrator   5  notes worker -> orchestrator               orchestrator          929     61    990
+  CLM-001  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     516    283    799
+  CLM-001  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     877    167   1044
+  CLM-001  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1041    137   1178
+  CLM-001  orchestrator      = case total                                                    6279   1023   7302
+  CLM-002  single         -  (no hand-off: single agent, 4 calls)       single_agent         4513    326   4839
+  CLM-002  orchestrator   1  user -> orchestrator                       orchestrator          714     47    761
+  CLM-002  orchestrator   2  get_claim -> orchestrator                  orchestrator          836     33    869
+  CLM-002  orchestrator   3  orchestrator -> notes worker               notes_worker          573    133    706
+  CLM-002  orchestrator   4  orchestrator -> notes worker               notes_worker          788     70    858
+  CLM-002  orchestrator   5  orchestrator -> notes worker               notes_worker          933    145   1078
+  CLM-002  orchestrator   6  notes worker -> orchestrator               orchestrator          929     61    990
+  CLM-002  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     517    131    648
+  CLM-002  orchestrator   8  orchestrator -> exclusions worker          exclusions_worker     731    238    969
+  CLM-002  orchestrator   9  exclusions worker -> orchestrator          orchestrator         1044    144   1188
+  CLM-002  orchestrator      = case total                                                    7065   1002   8067
+  CLM-003  single         -  (no hand-off: single agent, 4 calls)       single_agent         4329    236   4565
+  CLM-003  orchestrator   1  user -> orchestrator                       orchestrator          714     48    762
+  CLM-003  orchestrator   2  get_claim -> orchestrator                  orchestrator          838     33    871
+  CLM-003  orchestrator   3  orchestrator -> notes worker               notes_worker          573     67    640
+  CLM-003  orchestrator   4  orchestrator -> notes worker               notes_worker          728    187    915
+  CLM-003  orchestrator   5  notes worker -> orchestrator               orchestrator          936     69   1005
+  CLM-003  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     519    144    663
+  CLM-003  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     739    232    971
+  CLM-003  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1060    163   1223
+  CLM-003  orchestrator      = case total                                                    6107    943   7050
+  CLM-004  single         -  (no hand-off: single agent, 4 calls)       single_agent         4460    446   4906
+  CLM-004  orchestrator   1  user -> orchestrator                       orchestrator          714     48    762
+  CLM-004  orchestrator   2  get_claim -> orchestrator                  orchestrator          837     33    870
+  CLM-004  orchestrator   3  orchestrator -> notes worker               notes_worker          573    131    704
+  CLM-004  orchestrator   4  orchestrator -> notes worker               notes_worker          756    168    924
+  CLM-004  orchestrator   5  notes worker -> orchestrator               orchestrator          917     50    967
+  CLM-004  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     516    134    650
+  CLM-004  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     727    383   1110
+  CLM-004  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1045    253   1298
+  CLM-004  orchestrator      = case total                                                    6085   1200   7285
+  CLM-005  single         -  (no hand-off: single agent, 4 calls)       single_agent         4466    397   4863
+  CLM-005  orchestrator   1  user -> orchestrator                       orchestrator          714     47    761
+  CLM-005  orchestrator   2  get_claim -> orchestrator                  orchestrator          837     33    870
+  CLM-005  orchestrator   3  orchestrator -> notes worker               notes_worker          573    132    705
+  CLM-005  orchestrator   4  orchestrator -> notes worker               notes_worker          773    149    922
+  CLM-005  orchestrator   5  notes worker -> orchestrator               orchestrator          935     62    997
+  CLM-005  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     517    136    653
+  CLM-005  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     717    346   1063
+  CLM-005  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1061    528   1589
+  CLM-005  orchestrator      = case total                                                    6127   1433   7560
+  CLM-006  single         -  (no hand-off: single agent, 4 calls)       single_agent         4485    445   4930
+  CLM-006  orchestrator   1  user -> orchestrator                       orchestrator          714     47    761
+  CLM-006  orchestrator   2  get_claim -> orchestrator                  orchestrator          839     33    872
+  CLM-006  orchestrator   3  orchestrator -> notes worker               notes_worker          573    134    707
+  CLM-006  orchestrator   4  orchestrator -> notes worker               notes_worker          771    265   1036
+  CLM-006  orchestrator   5  notes worker -> orchestrator               orchestrator          944     54    998
+  CLM-006  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     517    282    799
+  CLM-006  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     867    323   1190
+  CLM-006  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1065    268   1333
+  CLM-006  orchestrator      = case total                                                    6290   1406   7696
+  CLM-007  single         -  (no hand-off: single agent, 4 calls)       single_agent         4373    409   4782
+  CLM-007  orchestrator   1  user -> orchestrator                       orchestrator          714     48    762
+  CLM-007  orchestrator   2  get_claim -> orchestrator                  orchestrator          838     33    871
+  CLM-007  orchestrator   3  orchestrator -> notes worker               notes_worker          573    132    705
+  CLM-007  orchestrator   4  orchestrator -> notes worker               notes_worker          792    321   1113
+  CLM-007  orchestrator   5  notes worker -> orchestrator               orchestrator          955     62   1017
+  CLM-007  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     517    147    664
+  CLM-007  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     764    303   1067
+  CLM-007  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1088    223   1311
+  CLM-007  orchestrator      = case total                                                    6241   1269   7510
+  CLM-008  single         -  (no hand-off: single agent, 4 calls)       single_agent         4367    393   4760
+  CLM-008  orchestrator   1  user -> orchestrator                       orchestrator          714     51    765
+  CLM-008  orchestrator   2  get_claim -> orchestrator                  orchestrator          840     33    873
+  CLM-008  orchestrator   3  orchestrator -> notes worker               notes_worker          573    134    707
+  CLM-008  orchestrator   4  orchestrator -> notes worker               notes_worker          775    186    961
+  CLM-008  orchestrator   5  notes worker -> orchestrator               orchestrator          930     60    990
+  CLM-008  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     517    243    760
+  CLM-008  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     836    281   1117
+  CLM-008  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1053    367   1420
+  CLM-008  orchestrator      = case total                                                    6238   1355   7593
+  CLM-009  single         -  (no hand-off: single agent, 4 calls)       single_agent         4552    630   5182
+  CLM-009  orchestrator   1  user -> orchestrator                       orchestrator          714     47    761
+  CLM-009  orchestrator   2  get_claim -> orchestrator                  orchestrator          836     33    869
+  CLM-009  orchestrator   3  orchestrator -> notes worker               notes_worker          573     67    640
+  CLM-009  orchestrator   4  orchestrator -> notes worker               notes_worker          730    134    864
+  CLM-009  orchestrator   5  notes worker -> orchestrator               orchestrator          930     61    991
+  CLM-009  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     516    136    652
+  CLM-009  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     734    501   1235
+  CLM-009  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1064    338   1402
+  CLM-009  orchestrator      = case total                                                    6097   1317   7414
+  CLM-010  single         -  (no hand-off: single agent, 4 calls)       single_agent         4473    472   4945
+  CLM-010  orchestrator   1  user -> orchestrator                       orchestrator          714     47    761
+  CLM-010  orchestrator   2  get_claim -> orchestrator                  orchestrator          837     33    870
+  CLM-010  orchestrator   3  orchestrator -> notes worker               notes_worker          573     67    640
+  CLM-010  orchestrator   4  orchestrator -> notes worker               notes_worker          705    232    937
+  CLM-010  orchestrator   5  notes worker -> orchestrator               orchestrator          922     50    972
+  CLM-010  orchestrator   6  orchestrator -> exclusions worker          exclusions_worker     516    242    758
+  CLM-010  orchestrator   7  orchestrator -> exclusions worker          exclusions_worker     835    271   1106
+  CLM-010  orchestrator   8  exclusions worker -> orchestrator          orchestrator         1039    319   1358
+  CLM-010  orchestrator      = case total                                                    6141   1261   7402
+#
+# Totals by hand-off (orchestrator arm, all 10 cases)
+  orchestrator -> exclusions worker           20 calls   17,918 tokens   23.9%
+  orchestrator -> notes worker                21 calls   17,416 tokens   23.3%
+  exclusions worker -> orchestrator           10 calls   13,300 tokens   17.8%
+  notes worker -> orchestrator                10 calls    9,917 tokens   13.2%
+  get_claim -> orchestrator                   10 calls    8,707 tokens   11.6%
+  user -> orchestrator                        10 calls    7,621 tokens   10.2%
+  orchestrator arm total                      81 calls   74,879 tokens  100.0%
+  single arm total                            40 calls   48,305 tokens
+#
+# Context re-send multiplier: 74,879 / 48,305 = 1.6x  —  largest share: "orchestrator -> exclusions worker" 17,918 tokens = 24% of all orchestrator-arm tokens
