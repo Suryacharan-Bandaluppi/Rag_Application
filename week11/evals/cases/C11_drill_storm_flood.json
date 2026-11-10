@@ -1,0 +1,9 @@
+{
+  "case_id": "C11",
+  "source": "production trace tr_044698c89a65 (2026-10-26T14:41:17Z, adj-04), found in the week-11 drill; question copied verbatim from query_redacted (contains no PII)",
+  "question": "Big storm Saturday night, the street gullies couldnt cope and rainwater came in under the front door. Ground floor carpets and kitchen units ruined, £9k, excess £350. Storm claim - what do we pay?",
+  "expected_decision": "not_covered",
+  "expected_payable_gbp": 0.0,
+  "must_cite_any": ["4.2b"],
+  "why": "Water entering from outside via overflowing drains / surface run-off (gullies backing up, rain under an undamaged door) is flood under 4.2b, payout modifier 0. 4.2a storm only covers rain entering through damage the storm caused. The app answered covered GBP 8,650 under 4.2a; retrieval had returned 4.2a, 1.2, 1.1 and never 4.2b."
+}

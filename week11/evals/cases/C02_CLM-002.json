@@ -1,0 +1,7 @@
+{
+  "case_id": "C02",
+  "source": "week7/claims.jsonl CLM-002 (claims-system CLM-2024-88102); expected values unchanged",
+  "question": "Is claim CLM-2024-88102 covered, and how much is payable?",
+  "expected_decision": "not_covered",
+  "expected_payable_gbp": 0.0
+}
