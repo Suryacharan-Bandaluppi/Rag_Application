@@ -1,0 +1,3 @@
+2 tools discovered via tools/list from 1 server(s):
+  policy_docs: search_policy_documents, get_policy_clause
+resources attached as context: ['policy://exclusions-schedule']

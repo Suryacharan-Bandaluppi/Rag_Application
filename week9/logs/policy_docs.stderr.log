@@ -1,0 +1,54 @@
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "flood clause 4.2", "top_k": 5} isError=False
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "flood clause 4.2", "top_k": 5} isError=False
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "flood", "top_k": 5} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "clause 4.2", "top_k": 5} isError=False
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "clause 4.2", "top_k": 5} isError=False
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call search_policy_documents {"query": "4.2", "top_k": 5} isError=False
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2"} isError=True
+[policy-docs] tools/call get_policy_clause {"clause_id": "4.2b"} isError=False
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] started, 2 tools, 1 resources
+[policy-docs] client initialized
+[policy-docs] tools/call get_policy_clause {"clause_id": "8.1"} isError=False

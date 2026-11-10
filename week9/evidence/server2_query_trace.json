@@ -1,0 +1,55 @@
+{
+  "query": "Claim CLM-2024-88102 was submitted for fire damage. What is its current status, what do the latest adjuster notes say, and does a policy exclusion apply?",
+  "model": "openai/gpt-oss-120b",
+  "discovered": {
+    "policy_docs": [
+      "search_policy_documents",
+      "get_policy_clause"
+    ],
+    "claims_system": [
+      "get_claim_status",
+      "get_adjuster_note_history"
+    ]
+  },
+  "attached_resources": [
+    "policy://exclusions-schedule"
+  ],
+  "trace": [
+    {
+      "type": "tool_call",
+      "server": "claims_system",
+      "tool": "get_claim_status",
+      "qualified": "claims_system__get_claim_status",
+      "args": {
+        "claim_number": "CLM-2024-88102"
+      },
+      "is_error": false,
+      "result": "{\"claim_number\": \"CLM-2024-88102\", \"claimant\": \"Bernard Walsh\", \"policy_number\": \"POL-2024-002\", \"declared_type\": \"fire\", \"declared_amount\": 48000.0, \"policy_excess\": 1000.0, \"submitted\": \"2024-04-03\", \"status\": \"escalated\", \"last_updated\": \"2024-04-09\", \"assigned_adjuster\": \"M. Chen\"}"
+    },
+    {
+      "type": "tool_call",
+      "server": "claims_system",
+      "tool": "get_adjuster_note_history",
+      "qualified": "claims_system__get_adjuster_note_history",
+      "args": {
+        "claim_number": "CLM-2024-88102"
+      },
+      "is_error": false,
+      "result": "{\"claim_number\": \"CLM-2024-88102\", \"notes\": [{\"date\": \"2024-04-03\", \"stage\": \"pending\", \"adjuster\": \"R. Okafor\", \"note\": \"Fire reported at insured premises on 2024-04-02. Fire service attended. Claim submitted next day.\"}, {\"date\": \"2024-04-05\", \"stage\": \"reviewed\", \"adjuster\": \"S. Lindqvist\", \"note\": \"Site inspection 2024-04-04: Fire investigation unit has opened an arson inquiry (case FI-2024-0112). Accelerant traces detected at two ignition points. Criminal acts exclusion (Clause 8.1) is under consideration pending investigation outcome. Senior review recommended.\"}, {\"date\": \"2024-04-09\", \"stage\": \"escalated\", \"adjuster\": \"M. Chen\", \"note\": \"Arson confirmed by FIU report dated 2024-04-09. Criminal-acts exclusion (Clause 8.1) applies. No coverage payable. Refer to legal for subrogation review.\"}]}"
+    },
+    {
+      "type": "tool_call",
+      "server": "policy_docs",
+      "tool": "get_policy_clause",
+      "qualified": "policy_docs__get_policy_clause",
+      "args": {
+        "clause_id": "8.1"
+      },
+      "is_error": false,
+      "result": "{\"clause_id\": \"8.1\", \"title\": \"Arson and criminal acts exclusion\", \"text\": \"We do not cover fire or any other damage caused by arson or by any criminal act, whether committed by the insured or by a third party. Payout modifier 0. A claim under active criminal investigation is held, not denied, until the investigation outcome is confirmed.\"}"
+    }
+  ],
+  "answer": "**Current claim status**  \n- The claim (CLM\u20112024\u201188102) is **escalated** (last updated\u202f2024\u201104\u201109).  \n\n**Latest adjuster note (2024\u201104\u201109, stage\u202fescalated, Adjuster\u202fM.\u202fChen)**  \n- \u201cArson confirmed by FIU report dated 2024\u201104\u201109. Criminal\u2011acts exclusion (Clause\u202f8.1) applies. No coverage payable. Refer to legal for subrogation review.\u201d  \n\n**Policy exclusion that applies**  \n- **Clause\u202f8.1 \u2013 \u201cArson and criminal acts exclusion\u201d** (full text: \u201cWe do not cover fire or any other damage caused by arson or by any criminal act, whether committed by the insured or by a third party. Payout modifier\u202f0. A claim under active criminal investigation is held, not denied, until the investigation outcome is confirmed.\u201d)  \n\nBecause the fire damage has been confirmed as arson, the arson/criminal\u2011acts exclusion in Clause\u202f8.1 applies, resulting in a payout modifier of\u202f0 (no coverage payable).",
+  "total_tokens": 7132,
+  "llm_calls": 4
+}
