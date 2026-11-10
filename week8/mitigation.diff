@@ -1,0 +1,20 @@
+--- week7/tools.py TOOL_SCHEMAS
++++ week8/mitigation.py MITIGATED_TOOL_SCHEMAS
+@@ -55,7 +55,7 @@
+     "type": "function",
+     "function": {
+       "name": "get_adjuster_notes",
+-      "description": "Retrieve adjuster notes for a specific claim, filtered by review stage. Each stage captures findings from that phase of the claims process: 'pending' = initial intake log; 'reviewed' = field-investigator findings including actual damage cause and any red flags that may override the declared claim type; 'escalated' = senior adjuster comments for cases needing further scrutiny; 'denied' = formal denial rationale. Returns an empty notes string if no entry exists for that stage. This tool has exactly one job: fetch adjuster notes. It does not return claim metadata (use get_claim) or exclusion rules (use search_policy_exclusions).",
++      "description": "Retrieve adjuster notes for a specific claim, filtered by review stage. Each stage captures findings from that phase of the claims process: 'pending' = initial intake log; 'reviewed' = field-investigator findings including actual damage cause and any red flags that may override the declared claim type; 'escalated' = senior adjuster comments for cases needing further scrutiny; 'denied' = formal denial rationale. Returns an empty notes string if no entry exists for that stage. IMPORTANT: if the 'reviewed' notes describe a finding as provisional \u2014 e.g. 'under consideration', 'pending investigation outcome', 'senior review recommended', 'awaiting' \u2014 that finding is NOT confirmed. Call this tool again with status='escalated' to read the confirmed outcome before you submit a verdict. Do not deny or approve on a provisional finding. This tool has exactly one job: fetch adjuster notes. It does not return claim metadata (use get_claim) or exclusion rules (use search_policy_exclusions).",
+       "parameters": {
+         "type": "object",
+         "properties": {
+@@ -71,7 +71,7 @@
+               "escalated",
+               "denied"
+             ],
+-            "description": "The review stage to retrieve notes for. Start with 'reviewed' to get field-investigation findings, which include the confirmed damage cause."
++            "description": "The review stage to retrieve notes for. Start with 'reviewed' to get field-investigation findings, which include the confirmed damage cause. Use 'escalated' when the reviewed notes say a finding is still under consideration or recommend senior review."
+           }
+         },
+         "required": [
