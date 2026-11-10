@@ -1,0 +1,20 @@
+Verdict
+═══════
+The fixed workflow outperforms the agent on latency (workflow p50 2.1s vs agent
+17.65s), token usage (9,820 vs 49,278 total), and cost per claim ($0.000884 vs
+$0.004436) — a 5x difference on every efficiency metric.
+
+The three claims that require an agent are the conditional-path inputs: CLM-001
+(water_damage declared / flood confirmed by field investigator), CLM-002 (fire
+declared / arson confirmed by FIU and senior review), and CLM-003 (vehicle_accident
+declared / DUI confirmed by police BAC report). In each case the adjuster notes
+reveal a damage cause that triggers a different policy exclusion from the one the
+workflow queries. The workflow always calls search_policy_exclusions with the
+declared type, never retrieves the flood/arson/intoxicated_driving exclusion, and
+returns incorrect approved or partial verdicts on all three. The agent reads the
+notes first, identifies the actual cause, queries the correct exclusion, and
+correctly denies all three.
+
+Decision rule applied: the path does vary by input for this specific claim class.
+Use the agent only for claims where adjuster-confirmed cause can override the
+declared type; use the fixed workflow for all others.

@@ -1,0 +1,39 @@
+Week 7 — Budget Termination Log
+Claim:   CLM-002 (fire/arson — Bernard Walsh)
+Model:   openai/gpt-oss-120b
+Budget:  max_iters=2  max_tokens=4000  max_cost=$0.05  wall_clock=30s
+
+Narrative: The agent starts the loop. Iteration 1 calls get_claim and returns the
+claim record (declared_type=fire, amount=£48000). Iteration 2 calls get_adjuster_notes
+with status="reviewed", which reveals the arson investigation. On entering iteration 3
+the budget check fires (iters=3 > max_iters=2) and the loop exits cleanly — before
+the agent can look up the arson exclusion or call submit_verdict.
+
+──────────────────────────────────────────────────────────────────────────────────
+
+[agent] START CLM-002  budgets={'max_iters': 2, 'max_tokens': 4000, 'max_cost_usd': 0.05, 'wall_clock_s': 30.0}
+[agent] iter=1  elapsed=0.0s  tokens=0  cost=$0.0000  messages=2
+[agent] iter=1  +823p/68c tokens  tool_calls=['get_claim']
+[agent]   tool=get_claim  args={'claim_id': 'CLM-002'}  result={"claim_id": "CLM-002", "claimant": "Bernard Walsh", "declared_type": "fire", "declared_amount": 48000.0, "policy_excess": 1000.0, "policy_number": "POL-2024-002", "submission_date": "2024-04-03"}
+[agent] iter=2  elapsed=0.9s  tokens=891  cost=$0.0008  messages=4
+[agent] iter=2  +987p/42c tokens  tool_calls=['get_adjuster_notes']
+[agent]   tool=get_adjuster_notes  args={'claim_id': 'CLM-002', 'status': 'reviewed'}  result={"claim_id": "CLM-002", "status": "reviewed", "notes": "Site inspection 2024-04-04: Fire investigation unit has opened an arson inquiry (case FI-2024-0112). Accelerant traces detected at two ignition points. Criminal acts exclusion (Clause 8.1) is under consideration pending investigation outcome. Senior review recommended."}
+[agent] BUDGET HIT: max_iters=2 exceeded at start of iteration 3. Terminating cleanly.
+
+──────────────────────────────────────────────────────────────────────────────────
+
+Result:      verdict=budget_hit  budget_hit=max_iters
+Iters used:  2
+Tokens used: 1920
+Cost so far: $0.001728
+Elapsed:     1.84s
+
+Observation: the loop exited cleanly with verdict='budget_hit' instead of
+spinning or producing a hallucinated answer. All four budget checks are live
+code executed at the top of every iteration — not comments with ambition.
+
+Which budget fired: max_iters (iteration counter 3 exceeded cap of 2)
+Remaining budgets at termination:
+  max_tokens:   1920 / 4000 — NOT yet hit
+  max_cost_usd: $0.001728 / $0.050000 — NOT yet hit
+  wall_clock:   1.84s / 30.0s — NOT yet hit

@@ -1,0 +1,72 @@
+Third Tool — Description Diff
+════════════════════════════════════════════════════════════════════════
+
+BEFORE (2-tool agent — Week 7 base):
+  Tools: get_claim, search_policy_exclusions
+  The agent could pull the claim record and look up exclusions for a given
+  cause, but had no mechanism to read what the field adjuster actually found.
+  It had to infer the damage cause from the claim metadata alone (declared_type),
+  which is set by the claimant at submission time and is often imprecise or wrong.
+
+──────────────────────────────────────────────────────────────────────
+
+AFTER (3-tool agent — this task):
+  Added tool:  get_adjuster_notes
+
+  Name:         get_adjuster_notes
+
+  Description:
+    "Retrieve adjuster notes for a specific claim, filtered by review stage.
+     Each stage captures findings from that phase of the claims process:
+     'pending' = initial intake log;
+     'reviewed' = field-investigator findings including actual damage cause
+     and any red flags that may override the declared claim type;
+     'escalated' = senior adjuster comments for cases needing further scrutiny;
+     'denied' = formal denial rationale.
+     Returns an empty notes string if no entry exists for that stage.
+     This tool has exactly one job: fetch adjuster notes.
+     It does not return claim metadata (use get_claim) or
+     exclusion rules (use search_policy_exclusions)."
+
+  Parameters:
+    claim_id   string    required
+    status     string    required
+               enum: ["pending", "reviewed", "escalated", "denied"]
+               description: "The review stage to retrieve notes for. Start with
+                 'reviewed' to get field-investigation findings, which include
+                 the confirmed damage cause."
+
+──────────────────────────────────────────────────────────────────────
+
+Why this satisfies the rubric:
+
+  ONE JOB:       Fetches adjuster notes. Nothing else.
+                 Does not return claim metadata (get_claim does that).
+                 Does not return exclusion rules (search_policy_exclusions does that).
+
+  ENUM PARAM:    `status` is an enum of exactly four values that correspond to
+                 the four stages of the claims review pipeline:
+                 pending | reviewed | escalated | denied.
+                 No free-text input — the caller must pick a valid stage.
+
+  NO OVERLAP:    get_claim description ends with:
+                   "Does not include adjuster notes or policy exclusion details."
+                 search_policy_exclusions description ends with:
+                   "Use the ACTUAL damage cause identified by adjuster investigation…"
+                 get_adjuster_notes description ends with:
+                   "It does not return claim metadata (use get_claim) or
+                    exclusion rules (use search_policy_exclusions)."
+                 Each tool explicitly names what it does NOT do, ruling out overlap.
+
+──────────────────────────────────────────────────────────────────────
+
+Effect on agent behaviour:
+
+  Without get_adjuster_notes: agent calls get_claim → declared_type="water_damage"
+    → search_policy_exclusions("water_damage") → no flood exclusion found
+    → approves CLM-001 (wrong).
+
+  With get_adjuster_notes: agent calls get_claim → get_adjuster_notes(status="reviewed")
+    → notes say "Millbrook Creek overflow … flood damage (Clause 4.2b)"
+    → agent calls search_policy_exclusions("flood") → payout_modifier=0.0
+    → denies CLM-001 (correct).
